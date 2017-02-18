@@ -1,0 +1,105 @@
+//
+// Tables - hacked from Bootstrap less
+// --------------------------------------------------
+
+#fossil-fuel-divestment-table {
+  background-color: @table-bg;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+  // bordered
+  border: 1px solid @table-border-color;
+  .border-radius(4px);
+  // responsive
+  overflow-x: auto;
+  min-height: 0.01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
+  font-size:  @font-size - 2px;
+  // sorting chevrons see: http://jsfiddle.net/m7zby2gw/
+  > thead th {
+    padding: 4px 21px 4px 4px;
+    cursor: pointer;
+    background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center right;
+    &.asc {
+      background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right;
+    }
+    &.desc {
+      background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right;
+    }
+  }
+  // cells
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        padding: @table-cell-padding;
+        line-height: @line-height-base;
+        vertical-align: top;
+        border: 1px solid @table-border-color;
+      }
+    }
+  }
+  // Bottom align for column headings
+  > thead > tr > th {
+    text-align: left;
+    vertical-align: top;
+    border-bottom-width: 2px;
+  }
+  // striped
+  > tbody > tr:nth-of-type(odd) {
+    background-color: @table-bg-accent;
+  }
+  // hover
+  > tbody > tr:hover {
+    background-color: @table-bg-hover;
+  }
+  // Remove top border from thead by default
+  > caption + thead,
+  > colgroup + thead,
+  > thead:first-child {
+    > tr:first-child {
+      > th,
+      > td {
+        border-top: 0;
+      }
+    }
+  }
+  @media screen and (max-width: @screen-xs-max) {
+    width: 100%;
+    margin-bottom: (@line-height-computed * 0.75);
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid @table-border-color;
+    // Nuke the appropriate borders so that the parent can handle them
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr {
+        > td {
+          white-space: nowrap;
+        }
+        > th:first-child,
+        > td:first-child {
+          border-left: 0;
+        }
+        > th:last-child,
+        > td:last-child {
+          border-right: 0;
+        }
+      }
+    }
+    // Only nuke the last row's bottom-border in `tbody` and `tfoot` since
+    // chances are there will be only one `tr` in a `thead` and that would
+    // remove the border altogether.
+    > tbody,
+    > tfoot {
+      > tr:last-child {
+        > th,
+        > td {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}

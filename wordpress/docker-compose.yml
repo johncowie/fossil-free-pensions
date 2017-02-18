@@ -1,0 +1,12 @@
+version: '2'
+services:
+  web:
+    image: "wordpress:4-php7.0"
+    ports:
+      - 8089:80
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+  mysql:
+    image: "mysql:5"
+    environment:
+      MYSQL_ROOT_PASSWORD: example

@@ -1,0 +1,38 @@
+#metabox_map_authority label {
+  display: block;
+  font-weight: bold;
+  margin: 5px 0;
+}
+#metabox_map_authority input,
+#metabox_map_authority select {
+  width: 100%;
+  min-width: 200px;
+  max-width: 600px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+#metabox_map_authority textarea {
+  width: 100%;
+  margin-top: 10px;
+}
+#metabox_map_authority p {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+  display: inline-block;
+}
+#metabox_map_authority table {
+  margin-bottom: 20px;
+}
+#metabox_map_authority table th,
+#metabox_map_authority table td {
+  padding: 2px;
+}
+#metabox_map_authority table > thead > tr > th:first-child,
+#metabox_map_authority table > tbody > tr > td:first-child {
+  width: 20px;
+}
+#metabox_map_authority .investment-attachment {
+  display: block;
+  margin-bottom: 5px;
+}
