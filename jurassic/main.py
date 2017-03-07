@@ -1,8 +1,25 @@
 from spreadsheet import Spreadsheet
+from transform import produce_feature
+import json
 
 spreadsheet = Spreadsheet('creds.json')
 
-print(spreadsheet.get_records('JurassicTest'))
+records = spreadsheet.get_records('JurassicTest')
+companies = list(map(lambda x: x['Oil/Gas'], spreadsheet.get_records('JurassicCategories')))
+
+print(records)
+print(companies)
+
+data = produce_feature(records, companies)
+json = json.dumps(data, sort_keys=True, indent=2, separators=(',', ': '))
+
+print(json)
+
+os.makedirs
+f = open("output_json/test_output.json", 'w')
+f.write(json)
+f.close()
+
 
 # {
 #  "type": "Feature",

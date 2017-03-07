@@ -1,13 +1,17 @@
 import gspread
+import re
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ['https://spreadsheets.google.com/feeds']
+
+def _gfloat(s):
+    return float(re.sub(',', '', s))
 
 def local_authority(record):
     return record['Local Authority']
 
 def amount(record):
-    return float(record['Amount'])
+    return _gfloat(record['Amount'])
 
 def holding(record):
     return record['Description of Holding']
