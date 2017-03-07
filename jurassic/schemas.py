@@ -1,13 +1,12 @@
 from schema import Schema, And, Use, Optional
 
 _output_schema = Schema({
-     'type': 'Feature'
-    ,'properties': {
-         'fund_name': str
-        ,'fund_value': Use(float)
-        ,'currency': 'gbp'
-        ,'investment_value': Use(float)
-    }
+    'post_title': str,
+    'post_content': str,
+    'fund_name': str,
+    'fund_value': Use(float),
+    'investment_value': Use(float),
+    'google_doc_url': str,
 })
 
 def validate_output(data):

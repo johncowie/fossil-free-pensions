@@ -1,6 +1,6 @@
 from spreadsheet import Spreadsheet
 from transform import produce_feature
-import json
+import json, os, csv
 
 spreadsheet = Spreadsheet('creds.json')
 
@@ -10,16 +10,21 @@ companies = list(map(lambda x: x['Oil/Gas'], spreadsheet.get_records('JurassicCa
 print(records)
 print(companies)
 
-data = produce_feature(records, companies)
-json = json.dumps(data, sort_keys=True, indent=2, separators=(',', ': '))
+data = produce_feature(records, companies, 'https://example.com', 'Local Authority')
 
-print(json)
+class OurCSVDialect(csv.Dialect):
+    delimiter = ','
+    lineterminator = '\n'
+    doublequote = True
+    quoting = csv.QUOTE_ALL
+    quotechar = '"'
 
-os.makedirs
-f = open("output_json/test_output.json", 'w')
-f.write(json)
-f.close()
+with open('output_csv/test_output.csv', 'w') as csvfile:
+    fieldnames = data.keys()
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, dialect=OurCSVDialect)
 
+    writer.writeheader()
+    writer.writerow(data)
 
 # {
 #  "type": "Feature",

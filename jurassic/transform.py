@@ -14,15 +14,14 @@ def fossil_value(records, metadata):
     fossil_records = filter(lambda x: is_fossil_fuel_investment(x, metadata), records)
     return sum(fund_amounts(fossil_records))
 
-def produce_feature(la_data, metadata):
+def produce_feature(la_data, metadata, google_doc_url, local_authority_name):
     output =  {
-        'type': 'Feature'
-        ,'properties':{
-            'fund_name': local_authority(la_data[0])
-            ,'fund_value': fund_value(la_data)
-            ,'currency': 'gbp'
-            ,'investment_value': fossil_value(la_data, metadata)
-        }
+        'post_title': local_authority_name,
+        'post_content': '',
+        'fund_name': local_authority(la_data[0]),
+        'fund_value': fund_value(la_data),
+        'investment_value': fossil_value(la_data, metadata),
+        'google_doc_url': google_doc_url,
     }
     return validate_output(output)
 
