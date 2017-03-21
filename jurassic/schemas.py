@@ -7,9 +7,10 @@ _output_schema = Schema({
     'fund_value': Use(float),
     'investment_value': Use(float),
     'google_doc_url': str,
+    'projected_indirect_investment':Use(float),
+    'direct_investment': Use(float)
+
 })
 
 def validate_output(data):
     return _output_schema.validate(data)
-
-
