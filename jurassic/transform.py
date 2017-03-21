@@ -25,6 +25,13 @@ def grouped_fossil_records(records):
 def fossil_value(records, metadata):
     return sum(fund_amounts(fossil_records(records, metadata)))
 
+def add_company_leaderboard(output, sorted_investments):
+    for i in range(0, 5):
+        output['companies[{0}][\'name\']'.format(i)] = sorted_investments[i]['name']
+        output['companies[{0}][\'value\']'.format(i)] = sorted_investments[i]['value']
+    return output
+
+
 def produce_feature(la_data, metadata, google_doc_url, local_authority_name):
     direct_investment = fossil_value(la_data, metadata)
     sorted_investments = grouped_fossil_records(fossil_records(la_data, metadata))
@@ -36,16 +43,7 @@ def produce_feature(la_data, metadata, google_doc_url, local_authority_name):
         'investment_value': fossil_value(la_data, metadata),
         'google_doc_url': google_doc_url,
         'projected_indirect_investment':0,
-        'direct_investment': direct_investment,
-        'companies[0][\'name\']':sorted_investments[0]['name'],
-        'companies[0][\'value\']':sorted_investments[0]['value'],
-        'companies[1][\'name\']':sorted_investments[1]['name'],
-        'companies[1][\'value\']':sorted_investments[1]['value'],
-        'companies[2][\'name\']':sorted_investments[2]['name'],
-        'companies[2][\'value\']':sorted_investments[2]['value'],
-        'companies[3][\'name\']':sorted_investments[3]['name'],
-        'companies[3][\'value\']':sorted_investments[3]['value'],
-        'companies[4][\'name\']':sorted_investments[4]['name'],
-        'companies[4][\'value\']':sorted_investments[4]['value'],
+        'direct_investment': direct_investment
     }
+    add_company_leaderboard(output, sorted_investments)
     return validate_output(output)
