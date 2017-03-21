@@ -16,6 +16,7 @@ def amount(record):
 def holding(record):
     return record['Description of Holding']
 
+
 class Spreadsheet:
 
     def __init__(self, creds_file):
@@ -24,6 +25,3 @@ class Spreadsheet:
 
     def get_records(self, spreadsheet_name):
         return self.gc.open(spreadsheet_name).sheet1.get_all_records()
-
-    
-

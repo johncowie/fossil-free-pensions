@@ -1,4 +1,4 @@
-from transform import produce_feature
+from transform import produce_feature, grouped_fossil_records
 
 def sample_row(category, holding, amount):
     return {'Sub-category/Classification':category,
@@ -31,15 +31,25 @@ def test_something():
         'google_doc_url': 'https://example.com/my.google.doc.url',
         'projected_indirect_investment':0,
         'direct_investment':115.0,
-        # 'companies[0][\'name\']':'Blackrock',
-        # 'companies[0][\'value\']':30.0,
-        # 'companies[1][\'name\']':'OilyMcOilFace',
-        # 'companies[1][\'value\']':28.0,
-        # 'companies[2][\'name\']':'Shell',
-        # 'companies[2][\'value\']':25.0,
-        # 'companies[3][\'name\']':'CoalyMcCoalFace',
-        # 'companies[3][\'value\']':20.0,
-        # 'companies[4][\'name\']':'GassyCorp',
-        # 'companies[4][\'value\']':12.0
+        'companies[0][\'name\']':'Blackrock',
+        'companies[0][\'value\']':30.0,
+        'companies[1][\'name\']':'OilyMcOilFace',
+        'companies[1][\'value\']':28.0,
+        'companies[2][\'name\']':'Shell',
+        'companies[2][\'value\']':25.0,
+        'companies[3][\'name\']':'CoalyMcCoalFace',
+        'companies[3][\'value\']':20.0,
+        'companies[4][\'name\']':'GassyCorp',
+        'companies[4][\'value\']':12.0
     }
     assert out == expected
+
+def test_grouping_fossil_records():
+    rows = [
+        sample_row('', 'A', '10.0'),
+        sample_row('', 'B', '15.0'),
+        sample_row('', 'A', '13.0')
+    ]
+    expected = [ {'name':'A', 'value':23.0}
+                ,{'name':'B', 'value':15.0}]
+    assert grouped_fossil_records(rows) == expected
