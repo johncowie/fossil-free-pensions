@@ -1,0 +1,969 @@
+=IF(
+    ISNUMBER(
+      SEARCH(
+        "Coal India",
+        B2
+        )
+      ),
+    "Coal India",
+    IF(
+      ISNUMBER(
+        SEARCH(
+          "China Shenhua",
+          B2
+          )
+        ),
+      "China Shenhua",
+      IF(
+        ISNUMBER(
+          SEARCH(
+            "Adani",
+            B2
+            )
+          ),
+        "Adani",
+        IF(
+          ISNUMBER(
+            SEARCH(
+              "Shanxi Coking",
+              B2
+              )
+            ),
+          "Shanxi Coking",
+          IF(
+            ISNUMBER(
+              SEARCH(
+                "Anglo American",
+                B2
+                )
+              ),
+            "Anglo American",
+            IF(
+              ISNUMBER(
+                SEARCH(
+                  "BHP Billiton",
+                  B2
+                  )
+                ),
+              "BHP Billiton",
+              IF(
+                ISNUMBER(
+                  SEARCH(
+                    "Yitai Coal",
+                    B2
+                    )
+                  ),
+                "Yitai Coal",
+                IF(
+                  ISNUMBER(
+                    SEARCH(
+                      "Datang Intl",
+                      B2
+                      )
+                    ),
+                  "Datang Intl",
+                  IF(
+                    ISNUMBER(
+                      SEARCH(
+                        "China Coal",
+                        B2
+                        )
+                      ),
+                    "China Coal",
+                    IF(
+                      ISNUMBER(
+                        SEARCH(
+                          "Peabody Energy",
+                          B2
+                          )
+                        ),
+                      "Peabody Energy",
+                      IF(
+                        ISNUMBER(
+                          SEARCH(
+                            "Glencore Xstrata",
+                            B2
+                            )
+                          ),
+                        "Glencore Xstrata",
+                        IF(
+                          ISNUMBER(
+                            SEARCH(
+                              "Datong Coal",
+                              B2
+                              )
+                            ),
+                          "Datong Coal",
+                          IF(
+                            ISNUMBER(
+                              SEARCH(
+                                "Yanzhou Coal",
+                                B2
+                                )
+                              ),
+                            "Yanzhou Coal",
+                            IF(
+                              ISNUMBER(
+                                SEARCH(
+                                  "DEH",
+                                  B2
+                                  )
+                                ),
+                              "DEH",
+                              IF(
+                                ISNUMBER(
+                                  SEARCH(
+                                    "Exxaro",
+                                    B2
+                                    )
+                                  ),
+                                "Exxaro",
+                                IF(
+                                  ISNUMBER(
+                                    SEARCH(
+                                      "Yangquan Coal",
+                                      B2
+                                      )
+                                    ),
+                                  "Yangquan Coal",
+                                  IF(
+                                    ISNUMBER(
+                                      SEARCH(
+                                        "Mechel",
+                                        B2
+                                        )
+                                      ),
+                                    "Mechel",
+                                    IF(
+                                      ISNUMBER(
+                                        SEARCH(
+                                          "Arch Coal",
+                                          B2
+                                          )
+                                        ),
+                                      "Arch Coal",
+                                      IF(
+                                        ISNUMBER(
+                                          SEARCH(
+                                            "Alpha Natural Resources",
+                                            B2
+                                            )
+                                          ),
+                                        "Alpha Natural Resources",
+                                        IF(
+                                          ISNUMBER(
+                                            SEARCH(
+                                              "EVRAZ",
+                                              B2
+                                              )
+                                            ),
+                                          "EVRAZ",
+                                          IF(
+                                            ISNUMBER(
+                                              SEARCH(
+                                                "Mitsubishi",
+                                                B2
+                                                )
+                                              ),
+                                            "Mitsubishi",
+
+                                            if(
+                                              and(
+                                                or(
+                                                  B2="Vale",
+                                                  ISNUMBER(
+                                                    SEARCH(
+                                                      "Vale ",
+                                                      B2
+                                                      )
+                                                    )
+                                                  ),
+                                                NOT(
+                                                  ISNUMBER(
+                                                    SEARCH(
+                                                      "?Vale",
+                                                      B2
+                                                      )
+                                                    )
+                                                  )
+                                                ),
+                                              "Vale",
+                                              IF(
+                                                  ISNUMBER(
+                                                    SEARCH(
+                                                      "Raspadskaya",
+                                                      B2
+                                                      )
+                                                    ),
+                                                  "Raspadskaya",
+                                                  IF(
+                                                    ISNUMBER(
+                                                      SEARCH(
+                                                        "Rio Tinto",
+                                                        B2
+                                                        )
+                                                      ),
+                                                    "Rio Tinto",
+                                                    IF(
+                                                      ISNUMBER(
+                                                        SEARCH(
+                                                          "Asia Resource",
+                                                          B2
+                                                          )
+                                                        ),
+                                                      "Asia Resource",
+                                                      IF(
+                                                        ISNUMBER(
+                                                          SEARCH(
+                                                            "Rusal",
+                                                            B2
+                                                            )
+                                                          ),
+                                                        "Rusal",
+                                                        IF(
+                                                          ISNUMBER(
+                                                            SEARCH(
+                                                              "Neyveli Lignite",
+                                                              B2
+                                                              )
+                                                            ),
+                                                          "Neyveli Lignite",
+                                                          IF(
+                                                            ISNUMBER(
+                                                              SEARCH(
+                                                                "Pingdingshan",
+                                                                B2
+                                                                )
+                                                              ),
+                                                            "Pingdingshan",
+                                                            IF(
+                                                              ISNUMBER(
+                                                                SEARCH(
+                                                                  "Cloud Peak",
+                                                                  B2
+                                                                  )
+                                                                ),
+                                                              "Cloud Peak",
+                                                              IF(
+                                                                ISNUMBER(
+                                                                  SEARCH(
+                                                                    "Sasol",
+                                                                    B2
+                                                                    )
+                                                                  ),
+                                                                "Sasol",
+                                                                IF(
+                                                                  ISNUMBER(
+                                                                    SEARCH(
+                                                                      "Tata Steel",
+                                                                      B2
+                                                                      )
+                                                                    ),
+                                                                  "Tata Steel",
+                                                                  IF(
+                                                                    AND(
+                                                                      ISNUMBER(
+                                                                        SEARCH(
+                                                                          "AGL",
+                                                                          B2
+                                                                          )
+                                                                        ),
+                                                                      NOT(
+                                                                        ISNUMBER(
+                                                                          SEARCH(
+                                                                            "?AGL",
+                                                                            B2
+                                                                            )
+                                                                          )
+                                                                        )
+                                                                      ),
+                                                                    "AGL",
+                                                                    IF(
+                                                                      ISNUMBER(
+                                                                        SEARCH(
+                                                                          "Teck",
+                                                                          B2
+                                                                          )
+                                                                        ),
+                                                                      "Teck",
+                                                                      IF(
+                                                                        ISNUMBER(
+                                                                          SEARCH(
+                                                                            "Severstal",
+                                                                            B2
+                                                                            )
+                                                                          ),
+                                                                        "Severstal",
+                                                                        IF(
+                                                                          ISNUMBER(
+                                                                            SEARCH(
+                                                                              "Coalspur",
+                                                                              B2
+                                                                              )
+                                                                            ),
+                                                                          "Coalspur",
+                                                                          IF(
+                                                                            ISNUMBER(
+                                                                              SEARCH(
+                                                                                "Kuzbass Fuel ",
+                                                                                B2
+                                                                                )
+                                                                              ),
+                                                                            "Kuzbass Fuel ",
+                                                                            IF(
+                                                                              ISNUMBER(
+                                                                                SEARCH(
+                                                                                  "Polyus Gold",
+                                                                                  B2
+                                                                                  )
+                                                                                ),
+                                                                              "Polyus Gold",
+                                                                              IF(
+                                                                                ISNUMBER(
+                                                                                  SEARCH(
+                                                                                    "Energy Ventures",
+                                                                                    B2
+                                                                                    )
+                                                                                  ),
+                                                                                "Energy Ventures",
+                                                                                IF(
+                                                                                  ISNUMBER(
+                                                                                    SEARCH(
+                                                                                      "Whitehaven Coal",
+                                                                                      B2
+                                                                                      )
+                                                                                    ),
+                                                                                  "Whitehaven Coal",
+                                                                                  IF(
+                                                                                    ISNUMBER(
+                                                                                      SEARCH(
+                                                                                        "Banpu",
+                                                                                        B2
+                                                                                        )
+                                                                                      ),
+                                                                                    "Banpu",
+                                                                                    IF(
+                                                                                      ISNUMBER(
+                                                                                        SEARCH(
+                                                                                          "Bayan",
+                                                                                          B2
+                                                                                          )
+                                                                                        ),
+                                                                                      "Bayan",
+                                                                                      IF(
+                                                                                        AND(
+                                                                                          ISNUMBER(
+                                                                                            SEARCH(
+                                                                                              "RWE",
+                                                                                              B2
+                                                                                              )
+                                                                                            ),
+                                                                                          NOT(
+                                                                                            ISNUMBER(
+                                                                                              SEARCH(
+                                                                                                "ERWE",
+                                                                                                B2
+                                                                                                )
+                                                                                              )
+                                                                                            )
+                                                                                          ),
+                                                                                        "RWE",
+                                                                                        IF(
+                                                                                          ISNUMBER(
+                                                                                            SEARCH(
+                                                                                              "Consol Energy",
+                                                                                              B2
+                                                                                              )
+                                                                                            ),
+                                                                                          "Consol Energy",
+                                                                                          IF(
+                                                                                            ISNUMBER(
+                                                                                              SEARCH(
+                                                                                                "WHSP",
+                                                                                                B2
+                                                                                                )
+                                                                                              ),
+                                                                                            "WHSP",
+                                                                                            IF(
+                                                                                              ISNUMBER(
+                                                                                                SEARCH(
+                                                                                                  "Westmoreland",
+                                                                                                  B2
+                                                                                                  )
+                                                                                                ),
+                                                                                              "Westmoreland",
+                                                                                              IF(
+                                                                                                ISNUMBER(
+                                                                                                  SEARCH(
+                                                                                                    "Resource Generation",
+                                                                                                    B2
+                                                                                                    )
+                                                                                                  ),
+                                                                                                "Resource Generation",
+                                                                                                IF(
+                                                                                                  ISNUMBER(
+                                                                                                    SEARCH(
+                                                                                                      "Churchill Mining",
+                                                                                                      B2
+                                                                                                      )
+                                                                                                    ),
+                                                                                                  "Churchill Mining",
+                                                                                                  IF(
+                                                                                                    ISNUMBER(
+                                                                                                      SEARCH(
+                                                                                                        "NTPC",
+                                                                                                        B2
+                                                                                                        )
+                                                                                                      ),
+                                                                                                    "NTPC",
+                                                                                                    IF(
+                                                                                                      ISNUMBER(
+                                                                                                        SEARCH(
+                                                                                                          "Adaro",
+                                                                                                          B2
+                                                                                                          )
+                                                                                                        ),
+                                                                                                      "Adaro",
+                                                                                                      IF(
+                                                                                                        ISNUMBER(
+                                                                                                          SEARCH(
+                                                                                                            "Nacco",
+                                                                                                            B2
+                                                                                                            )
+                                                                                                          ),
+                                                                                                        "Nacco",
+                                                                                                        IF(
+                                                                                                          ISNUMBER(
+                                                                                                            SEARCH(
+                                                                                                              "Idemitsu Kosan",
+                                                                                                              B2
+                                                                                                              )
+                                                                                                            ),
+                                                                                                          "Idemitsu Kosan",
+                                                                                                          IF(
+                                                                                                            ISNUMBER(
+                                                                                                              SEARCH(
+                                                                                                                "ARLP",
+                                                                                                                B2
+                                                                                                                )
+                                                                                                              ),
+                                                                                                            "ARLP",
+                                                                                                            IF(
+                                                                                                              ISNUMBER(
+                                                                                                                SEARCH(
+                                                                                                                  "Huolinhe Opencut",
+                                                                                                                  B2
+                                                                                                                  )
+                                                                                                                ),
+                                                                                                              "Huolinhe Opencut",
+                                                                                                              IF(
+                                                                                                                ISNUMBER(
+                                                                                                                  SEARCH(
+                                                                                                                    "Golden Energy",
+                                                                                                                    B2
+                                                                                                                    )
+                                                                                                                  ),
+                                                                                                                "Golden Energy",
+                                                                                                                IF(
+                                                                                                                  ISNUMBER(
+                                                                                                                    SEARCH(
+                                                                                                                      "Mitsui & Co",
+                                                                                                                      B2
+                                                                                                                      )
+                                                                                                                    ),
+                                                                                                                  "Mitsui & Co",
+
+                                                                                                                  IF(
+                                                                                                                    AND(
+                                                                                                                      ISNUMBER(
+                                                                                                                        SEARCH(
+                                                                                                                          "CoAL",
+                                                                                                                          B2
+                                                                                                                          )
+                                                                                                                        ),
+                                                                                                                      NOT(
+                                                                                                                        ISNUMBER(
+                                                                                                                          SEARCH(
+                                                                                                                            "?CoAL",
+                                                                                                                            B2
+                                                                                                                            )
+                                                                                                                          )
+                                                                                                                        )
+                                                                                                                      ),
+                                                                                                                    "CoAL",
+                                                                                                                    IF(
+                                                                                                                      ISNUMBER(
+                                                                                                                        SEARCH(
+                                                                                                                          "NLMK",
+                                                                                                                          B2
+                                                                                                                          )
+                                                                                                                        ),
+                                                                                                                      "NLMK",
+                                                                                                                      IF(
+                                                                                                                        ISNUMBER(
+                                                                                                                          SEARCH(
+                                                                                                                            "Tata Power",
+                                                                                                                            B2
+                                                                                                                            )
+                                                                                                                          ),
+                                                                                                                        "Tata Power",
+                                                                                                                        IF(
+                                                                                                                          ISNUMBER(
+                                                                                                                            SEARCH(
+                                                                                                                              "MMK OJSC",
+                                                                                                                              B2
+                                                                                                                              )
+                                                                                                                            ),
+                                                                                                                          "MMK OJSC",
+                                                                                                                          IF(
+                                                                                                                            ISNUMBER(
+                                                                                                                              SEARCH(
+                                                                                                                                "Wesfarmers",
+                                                                                                                                B2
+                                                                                                                                )
+                                                                                                                              ),
+                                                                                                                            "Wesfarmers",
+                                                                                                                            IF(
+                                                                                                                              ISNUMBER(
+                                                                                                                                SEARCH(
+                                                                                                                                  "Kazakhmys",
+                                                                                                                                  B2
+                                                                                                                                  )
+                                                                                                                                ),
+                                                                                                                              "Kazakhmys",
+                                                                                                                              IF(
+                                                                                                                                ISNUMBER(
+                                                                                                                                  SEARCH(
+                                                                                                                                    "New World Resources",
+                                                                                                                                    B2
+                                                                                                                                    )
+                                                                                                                                  ),
+                                                                                                                                "New World Resources",
+                                                                                                                                IF(
+                                                                                                                                  ISNUMBER(
+                                                                                                                                    SEARCH(
+                                                                                                                                      "MMC",
+                                                                                                                                      B2
+                                                                                                                                      )
+                                                                                                                                    ),
+                                                                                                                                  "MMC",
+                                                                                                                                  IF(
+                                                                                                                                    ISNUMBER(
+                                                                                                                                      SEARCH(
+                                                                                                                                        "Itochu",
+                                                                                                                                        B2
+                                                                                                                                        )
+                                                                                                                                      ),
+                                                                                                                                    "Itochu",
+                                                                                                                                    IF(
+                                                                                                                                      ISNUMBER(
+                                                                                                                                        SEARCH(
+                                                                                                                                          "Cockatoo",
+                                                                                                                                          B2
+                                                                                                                                          )
+                                                                                                                                        ),
+                                                                                                                                      "Cockatoo",
+                                                                                                                                      IF(
+                                                                                                                                        ISNUMBER(
+                                                                                                                                          SEARCH(
+                                                                                                                                            "Shanxi Meijin Energy",
+                                                                                                                                            B2
+                                                                                                                                            )
+                                                                                                                                          ),
+                                                                                                                                        "Shanxi Meijin Energy",
+                                                                                                                                        IF(
+                                                                                                                                          ISNUMBER(
+                                                                                                                                            SEARCH(
+                                                                                                                                              "Jizhong Energy",
+                                                                                                                                              B2
+                                                                                                                                              )
+                                                                                                                                            ),
+                                                                                                                                          "Jizhong Energy",
+                                                                                                                                          IF(
+                                                                                                                                            ISNUMBER(
+                                                                                                                                              SEARCH(
+                                                                                                                                                "Bandanna",
+                                                                                                                                                B2
+                                                                                                                                                )
+                                                                                                                                              ),
+                                                                                                                                            "Bandanna",
+                                                                                                                                            IF(
+                                                                                                                                              ISNUMBER(
+                                                                                                                                                SEARCH(
+                                                                                                                                                  "Polo Resources",
+                                                                                                                                                  B2
+                                                                                                                                                  )
+                                                                                                                                                ),
+                                                                                                                                              "Polo Resources",
+                                                                                                                                              IF(
+                                                                                                                                                ISNUMBER(
+                                                                                                                                                  SEARCH(
+                                                                                                                                                    "Allete",
+                                                                                                                                                    B2
+                                                                                                                                                    )
+                                                                                                                                                  ),
+                                                                                                                                                "Allete",
+                                                                                                                                                IF(
+                                                                                                                                                  ISNUMBER(
+                                                                                                                                                    SEARCH(
+                                                                                                                                                      "CLP Holdings",
+                                                                                                                                                      B2
+                                                                                                                                                      )
+                                                                                                                                                    ),
+                                                                                                                                                  "CLP Holdings",
+                                                                                                                                                  IF(
+                                                                                                                                                    AND(
+                                                                                                                                                      ISNUMBER(
+                                                                                                                                                        SEARCH(
+                                                                                                                                                          "Aspire",
+                                                                                                                                                          B2
+                                                                                                                                                          )
+                                                                                                                                                        ),
+                                                                                                                                                      NOT(
+                                                                                                                                                        ISNUMBER(
+                                                                                                                                                          SEARCH(
+                                                                                                                                                            "Aspire D",
+                                                                                                                                                            B2
+                                                                                                                                                            )
+                                                                                                                                                          )
+                                                                                                                                                        )
+                                                                                                                                                      ),
+                                                                                                                                                    "Aspire",
+                                                                                                                                                    IF(
+                                                                                                                                                      ISNUMBER(
+                                                                                                                                                        SEARCH(
+                                                                                                                                                          "Marubeni",
+                                                                                                                                                          B2
+                                                                                                                                                          )
+                                                                                                                                                        ),
+                                                                                                                                                      "Marubeni",
+                                                                                                                                                      IF(
+                                                                                                                                                        ISNUMBER(
+                                                                                                                                                          SEARCH(
+                                                                                                                                                            "China Resources",
+                                                                                                                                                            B2
+                                                                                                                                                            )
+                                                                                                                                                          ),
+                                                                                                                                                        "China Resources",
+                                                                                                                                                        IF(
+                                                                                                                                                          ISNUMBER(
+                                                                                                                                                            SEARCH(
+                                                                                                                                                              "Walter Energy",
+                                                                                                                                                              B2
+                                                                                                                                                              )
+                                                                                                                                                            ),
+                                                                                                                                                          "Walter Energy",
+                                                                                                                                                          IF(
+                                                                                                                                                            ISNUMBER(
+                                                                                                                                                              SEARCH(
+                                                                                                                                                                "Coal Energy",
+                                                                                                                                                                B2
+                                                                                                                                                                )
+                                                                                                                                                              ),
+                                                                                                                                                            "Coal Energy",
+                                                                                                                                                            IF(
+                                                                                                                                                              ISNUMBER(
+                                                                                                                                                                SEARCH(
+                                                                                                                                                                  "Indika",
+                                                                                                                                                                  B2
+                                                                                                                                                                  )
+                                                                                                                                                                ),
+                                                                                                                                                              "Indika",
+                                                                                                                                                              IF(
+                                                                                                                                                                ISNUMBER(
+                                                                                                                                                                  SEARCH(
+                                                                                                                                                                    "Arcelor Mittal",
+                                                                                                                                                                    B2
+                                                                                                                                                                    )
+                                                                                                                                                                  ),
+                                                                                                                                                                "Arcelor Mittal",
+                                                                                                                                                                IF(
+                                                                                                                                                                  ISNUMBER(
+                                                                                                                                                                    SEARCH(
+                                                                                                                                                                      "FirstEnergy",
+                                                                                                                                                                      B2
+                                                                                                                                                                      )
+                                                                                                                                                                    ),
+                                                                                                                                                                  "FirstEnergy",
+                                                                                                                                                                  IF(
+                                                                                                                                                                    ISNUMBER(
+                                                                                                                                                                      SEARCH(
+                                                                                                                                                                        "Black Hills",
+                                                                                                                                                                        B2
+                                                                                                                                                                        )
+                                                                                                                                                                      ),
+                                                                                                                                                                    "Black Hills",
+                                                                                                                                                                    IF(
+                                                                                                                                                                      ISNUMBER(
+                                                                                                                                                                        SEARCH(
+                                                                                                                                                                          "Wescoal",
+                                                                                                                                                                          B2
+                                                                                                                                                                          )
+                                                                                                                                                                        ),
+                                                                                                                                                                      "Wescoal",
+                                                                                                                                                                      IF(
+                                                                                                                                                                        ISNUMBER(
+                                                                                                                                                                          SEARCH(
+                                                                                                                                                                            "Grupo Mexico",
+                                                                                                                                                                            B2
+                                                                                                                                                                            )
+                                                                                                                                                                          ),
+                                                                                                                                                                        "Grupo Mexico",
+                                                                                                                                                                        IF(
+                                                                                                                                                                          and(
+                                                                                                                                                                            or(
+                                                                                                                                                                              B2="ARM",
+                                                                                                                                                                              ISNUMBER(
+                                                                                                                                                                                SEARCH(
+                                                                                                                                                                                  "ARM ",
+                                                                                                                                                                                  B2
+                                                                                                                                                                                  )
+                                                                                                                                                                                )
+                                                                                                                                                                              ),
+                                                                                                                                                                            NOT(
+                                                                                                                                                                              ISNUMBER(
+                                                                                                                                                                                SEARCH(
+                                                                                                                                                                                  "?ARM",
+                                                                                                                                                                                  B2
+                                                                                                                                                                                  )
+                                                                                                                                                                                )
+                                                                                                                                                                              )
+                                                                                                                                                                            ),
+                                                                                                                                                                          "ARM",
+                                                                                                                                                                          IF(
+                                                                                                                                                                              ISNUMBER(
+                                                                                                                                                                                SEARCH(
+                                                                                                                                                                                  "Shanxi Coal",
+                                                                                                                                                                                  B2
+                                                                                                                                                                                  )
+                                                                                                                                                                                ),
+                                                                                                                                                                              "Shanxi Coal",
+                                                                                                                                                                              IF(
+                                                                                                                                                                                ISNUMBER(
+                                                                                                                                                                                  SEARCH(
+                                                                                                                                                                                    "Capital Power",
+                                                                                                                                                                                    B2
+                                                                                                                                                                                    )
+                                                                                                                                                                                  ),
+                                                                                                                                                                                "Capital Power",
+                                                                                                                                                                                IF(
+                                                                                                                                                                                  ISNUMBER(
+                                                                                                                                                                                    SEARCH(
+                                                                                                                                                                                      "PTT",
+                                                                                                                                                                                      B2
+                                                                                                                                                                                      )
+                                                                                                                                                                                    ),
+                                                                                                                                                                                  "PTT",
+                                                                                                                                                                                  IF(
+                                                                                                                                                                                    ISNUMBER(
+                                                                                                                                                                                      SEARCH(
+                                                                                                                                                                                        "Shanxi Lanhua Sci-Tech",
+                                                                                                                                                                                        B2
+                                                                                                                                                                                        )
+                                                                                                                                                                                      ),
+                                                                                                                                                                                    "Shanxi Lanhua Sci-Tech",
+                                                                                                                                                                                    IF(
+                                                                                                                                                                                      ISNUMBER(
+                                                                                                                                                                                        SEARCH(
+                                                                                                                                                                                          "Fortune",
+                                                                                                                                                                                          B2
+                                                                                                                                                                                          )
+                                                                                                                                                                                        ),
+                                                                                                                                                                                      "Fortune",
+                                                                                                                                                                                      IF(
+                                                                                                                                                                                        ISNUMBER(
+                                                                                                                                                                                          SEARCH(
+                                                                                                                                                                                            "Cardero",
+                                                                                                                                                                                            B2
+                                                                                                                                                                                            )
+                                                                                                                                                                                          ),
+                                                                                                                                                                                        "Cardero",
+                                                                                                                                                                                        IF(
+                                                                                                                                                                                          ISNUMBER(
+                                                                                                                                                                                            SEARCH(
+                                                                                                                                                                                              "Zhengzhou  Coal",
+                                                                                                                                                                                              B2
+                                                                                                                                                                                              )
+                                                                                                                                                                                            ),
+                                                                                                                                                                                          "Zhengzhou Coal",
+                                                                                                                                                                                          IF(
+                                                                                                                                                                                            ISNUMBER(
+                                                                                                                                                                                              SEARCH(
+                                                                                                                                                                                                "SAIL",
+                                                                                                                                                                                                B2
+                                                                                                                                                                                                )
+                                                                                                                                                                                              ),
+                                                                                                                                                                                            "SAIL",
+                                                                                                                                                                                            IF(
+                                                                                                                                                                                              ISNUMBER(
+                                                                                                                                                                                                SEARCH(
+                                                                                                                                                                                                  "JSPL",
+                                                                                                                                                                                                  B2
+                                                                                                                                                                                                  )
+                                                                                                                                                                                                ),
+                                                                                                                                                                                              "JSPL",
+                                                                                                                                                                                              IF(
+                                                                                                                                                                                                ISNUMBER(
+                                                                                                                                                                                                  SEARCH(
+                                                                                                                                                                                                    "Shougang Fushan",
+                                                                                                                                                                                                    B2
+                                                                                                                                                                                                    )
+                                                                                                                                                                                                  ),
+                                                                                                                                                                                                "Shougang Fushan",
+                                                                                                                                                                                                IF(
+                                                                                                                                                                                                  ISNUMBER(
+                                                                                                                                                                                                    SEARCH(
+                                                                                                                                                                                                      "Jingyuan",
+                                                                                                                                                                                                      B2
+                                                                                                                                                                                                      )
+                                                                                                                                                                                                    ),
+                                                                                                                                                                                                  "Jingyuan",
+                                                                                                                                                                                                  IF(
+                                                                                                                                                                                                    ISNUMBER(
+                                                                                                                                                                                                      SEARCH(
+                                                                                                                                                                                                        "Stanmore",
+                                                                                                                                                                                                        B2
+                                                                                                                                                                                                        )
+                                                                                                                                                                                                      ),
+                                                                                                                                                                                                    "Stanmore",
+                                                                                                                                                                                                    IF(
+                                                                                                                                                                                                      ISNUMBER(
+                                                                                                                                                                                                        SEARCH(
+                                                                                                                                                                                                          "Prophecy Coal",
+                                                                                                                                                                                                          B2
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                        ),
+                                                                                                                                                                                                      "Prophecy Coal",
+                                                                                                                                                                                                      IF(
+                                                                                                                                                                                                        ISNUMBER(
+                                                                                                                                                                                                          SEARCH(
+                                                                                                                                                                                                            "Cliffs Natural Resources",
+                                                                                                                                                                                                            B2
+                                                                                                                                                                                                            )
+                                                                                                                                                                                                          ),
+                                                                                                                                                                                                        "Cliffs Natural Resources",
+                                                                                                                                                                                                        IF(
+                                                                                                                                                                                                          ISNUMBER(
+                                                                                                                                                                                                            SEARCH(
+                                                                                                                                                                                                              "James River",
+                                                                                                                                                                                                              B2
+                                                                                                                                                                                                              )
+                                                                                                                                                                                                            ),
+                                                                                                                                                                                                          "James River",
+                                                                                                                                                                                                          IF(
+                                                                                                                                                                                                            ISNUMBER(
+                                                                                                                                                                                                              SEARCH(
+                                                                                                                                                                                                                "CESC",
+                                                                                                                                                                                                                B2
+                                                                                                                                                                                                                )
+                                                                                                                                                                                                              ),
+                                                                                                                                                                                                            "CESC",
+                                                                                                                                                                                                            IF(
+                                                                                                                                                                                                              ISNUMBER(
+                                                                                                                                                                                                                SEARCH(
+                                                                                                                                                                                                                  "Alcoa",
+                                                                                                                                                                                                                  B2
+                                                                                                                                                                                                                  )
+                                                                                                                                                                                                                ),
+                                                                                                                                                                                                              "Alcoa",
+                                                                                                                                                                                                              "0"
+                                                                                                                                                                                                              )
+                                                                                                                                                                                                            )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
+                                                                                                                                                                                                          )
