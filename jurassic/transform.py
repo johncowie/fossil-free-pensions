@@ -26,7 +26,7 @@ def fossil_value(records, metadata):
     return sum(fund_amounts(fossil_records(records, metadata)))
 
 def add_company_leaderboard(output, sorted_investments):
-    for i in range(0, 5):
+    for i in range(0, min(len(sorted_investments), 5)):
         output['companies[{0}][\'name\']'.format(i)] = sorted_investments[i]['name']
         output['companies[{0}][\'value\']'.format(i)] = sorted_investments[i]['value']
     return output
