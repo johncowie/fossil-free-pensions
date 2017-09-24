@@ -1,16 +1,21 @@
 from spreadsheet import Spreadsheet
 from transform import produce_feature
+from matcher import FullTextMatcher
 import json, os, csv
 
 spreadsheet = Spreadsheet('creds.json')
+matcher = FullTextMatcher()
 
 records = spreadsheet.get_records('JurassicTest')
 companies = list(map(lambda x: x['Oil/Gas'], spreadsheet.get_records('JurassicCategories')))
 
+
 print(records)
 print(companies)
 
-data = produce_feature(records, companies, 'https://example.com', 'Local Authority')
+
+
+data = produce_feature(matcher, records, companies, 'https://example.com', 'Local Authority')
 
 class OurCSVDialect(csv.Dialect):
     delimiter = ','

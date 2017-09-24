@@ -1,7 +1,8 @@
 from transform import produce_feature, grouped_fossil_records
+from matcher import FullTextMatcher
 
-def sample_row(category, holding, amount):
-    return {'Sub-category/Classification':category,
+def sample_row(holding, amount):
+    return {'Sub-category/Classification':'Equity',
             'Local Authority': 'My pension fund',
             'Description of Holding': holding,
             'Amount': amount }
@@ -10,18 +11,19 @@ def category_row(string_match):
     return {'Match':string_match}
 
 def test_something():
+    matcher = FullTextMatcher()
     council_rows = [
-        sample_row('Alternative', 'McDonalds', '10.0'),
-        sample_row('Equity', 'Blackrock', '30.0'),
-        sample_row('Alternative', 'Shell', '25.0'),
-        sample_row('Alternative', 'OilyMcOilFace', '15.0'),
-        sample_row('Equity', 'CoalyMcCoalFace', '20.0'),
-        sample_row('Equity', 'OilyMcOilFace', '13.0'),
-        sample_row('Alternative', 'ToysRUs', '1000.0'),
-        sample_row('Equity', 'GassyCorp', '12.0')
+        sample_row('McDonalds', '10.0'),
+        sample_row('Blackrock', '30.0'),
+        sample_row('Shell', '25.0'),
+        sample_row('OilyMcOilFace', '15.0'),
+        sample_row('CoalyMcCoalFace', '20.0'),
+        sample_row('OilyMcOilFace', '13.0'),
+        sample_row('ToysRUs', '1000.0'),
+        sample_row('GassyCorp', '12.0')
     ]
     metadata = ['Shell','Blackrock','OilyMcOilFace', 'CoalyMcCoalFace', 'GassyCorp']
-    out = produce_feature(council_rows, metadata, 'https://example.com/my.google.doc.url', 'My local authority')
+    out = produce_feature(matcher, council_rows, metadata, 'https://example.com/my.google.doc.url', 'My local authority')
     expected = {
         'post_title': 'My local authority',
         'post_content': '',
@@ -46,9 +48,9 @@ def test_something():
 
 def test_grouping_fossil_records():
     rows = [
-        sample_row('', 'A', '10.0'),
-        sample_row('', 'B', '15.0'),
-        sample_row('', 'A', '13.0')
+        sample_row('A', '10.0'),
+        sample_row('B', '15.0'),
+        sample_row('A', '13.0')
     ]
     expected = [ {'name':'A', 'value':23.0}
                 ,{'name':'B', 'value':15.0}]

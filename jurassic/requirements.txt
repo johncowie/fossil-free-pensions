@@ -3,3 +3,5 @@ oauth2client
 nose
 pytest
 schema
+PyDrive
+google-api-python-client
