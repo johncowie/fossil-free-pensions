@@ -46,6 +46,10 @@ class Spreadsheet:
             except Exception as e:
                 print("Failed to delete: " + f['name'])
 
+    def all_files(self):
+        r = self.drive.files().list().execute()
+        return r['files']
+
     def add_permission(self, file_id, email, notify, can_edit):
         role = 'writer' if can_edit else 'reader'
         perm = {'emailAddress':email, 'type':'user', 'role':role}
