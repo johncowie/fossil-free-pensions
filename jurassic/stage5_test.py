@@ -1,4 +1,4 @@
-from formula import pattern_match_formula
+import formula
 from stage5 import full_data_tab
 
 def fund_record(investment_name, amount, category):
@@ -13,9 +13,9 @@ def test_full_data_tab():
     oil_patterns = [('BP', '^BP*'),
                     ('Shell', 'shell')]
     coal_patterns = [('King Coal', '^king coal')]
-    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Oil/Gas Companies', 'Coal Companies', 'All Amounts']
-                ,['A fund', 'BP Oil', 'category1', pattern_match_formula('B2', oil_patterns), pattern_match_formula('B2', coal_patterns), '23400']
-                ,['A fund', 'Big Coal', 'category2', pattern_match_formula('B3', oil_patterns), pattern_match_formula('B3', coal_patterns), '345.3']
-                ,['A fund', 'Evil Doers', 'category3', pattern_match_formula('B4', oil_patterns), pattern_match_formula('B4', coal_patterns), '455.4']
+    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Oil/Gas Companies', 'Coal Companies', 'Verification', 'All Amounts']
+                ,['A fund', 'BP Oil', 'category1', formula.pattern_match('B2', oil_patterns), formula.pattern_match('B2', coal_patterns), formula.verification(2, 'D', 'E', 'B'), '23400']
+                ,['A fund', 'Big Coal', 'category2', formula.pattern_match('B3', oil_patterns), formula.pattern_match('B3', coal_patterns), formula.verification(3, 'D', 'E', 'B'), '345.3']
+                ,['A fund', 'Evil Doers', 'category3', formula.pattern_match('B4', oil_patterns), formula.pattern_match('B4', coal_patterns), formula.verification(4, 'D', 'E', 'B'), '455.4']
                 ]
     assert expected == full_data_tab('A fund', init_data, oil_patterns, coal_patterns)
