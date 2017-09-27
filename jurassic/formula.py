@@ -1,3 +1,9 @@
+def fossil_amount(row, verification_column, amount_column):
+    rowStr = str(row)
+    ver_cell = verification_column + rowStr
+    am_cell = amount_column + rowStr
+    return '=IF({0}="0",{0},{1})'.format(ver_cell, am_cell)
+
 def verification(row, oil_col, coal_col, name_col):
     row_str = str(row)
     oil_cell = oil_col+row_str

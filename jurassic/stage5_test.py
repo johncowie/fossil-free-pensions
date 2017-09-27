@@ -13,9 +13,9 @@ def test_full_data_tab():
     oil_patterns = [('BP', '^BP*'),
                     ('Shell', 'shell')]
     coal_patterns = [('King Coal', '^king coal')]
-    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Oil/Gas Companies', 'Coal Companies', 'Verification', 'All Amounts']
-                ,['A fund', 'BP Oil', 'category1', formula.pattern_match('B2', oil_patterns), formula.pattern_match('B2', coal_patterns), formula.verification(2, 'D', 'E', 'B'), '23400']
-                ,['A fund', 'Big Coal', 'category2', formula.pattern_match('B3', oil_patterns), formula.pattern_match('B3', coal_patterns), formula.verification(3, 'D', 'E', 'B'), '345.3']
-                ,['A fund', 'Evil Doers', 'category3', formula.pattern_match('B4', oil_patterns), formula.pattern_match('B4', coal_patterns), formula.verification(4, 'D', 'E', 'B'), '455.4']
+    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Oil/Gas Companies', 'Coal Companies', 'Verification', 'Fossil Fuel Amounts', 'All Amounts']
+                ,['A fund', 'BP Oil', 'category1', formula.pattern_match('B2', oil_patterns), formula.pattern_match('B2', coal_patterns), formula.verification(2, 'D', 'E', 'B'), formula.fossil_amount(2, 'F', 'H'), '23400']
+                ,['A fund', 'Big Coal', 'category2', formula.pattern_match('B3', oil_patterns), formula.pattern_match('B3', coal_patterns), formula.verification(3, 'D', 'E', 'B'), formula.fossil_amount(3, 'F', 'H'), '345.3']
+                ,['A fund', 'Evil Doers', 'category3', formula.pattern_match('B4', oil_patterns), formula.pattern_match('B4', coal_patterns), formula.verification(4, 'D', 'E', 'B'), formula.fossil_amount(4, 'F', 'H'),'455.4']
                 ]
     assert expected == full_data_tab('A fund', init_data, oil_patterns, coal_patterns)

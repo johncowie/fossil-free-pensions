@@ -1,5 +1,9 @@
 import formula
 
+def test_fossil_amount_formula():
+    expected = '=IF(F17="0",F17,H17)'
+    assert expected == formula.fossil_amount(17, 'F', 'H')
+
 def test_verification_formula():
     expected = '=IF(OR(NOT(A3="0"),NOT(B3="0")),C3,A3)'
     assert expected == formula.verification(3, 'A', 'B', 'C')

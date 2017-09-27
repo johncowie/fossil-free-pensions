@@ -10,6 +10,7 @@ def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
               ,'Oil/Gas Companies'
               ,'Coal Companies'
               ,'Verification'
+              ,'Fossil Fuel Amounts'
               ,'All Amounts']
 
     rows = [headers]
@@ -23,6 +24,7 @@ def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
               ,formula.pattern_match(cellId, oil_patterns)
               ,formula.pattern_match(cellId, coal_patterns)
               ,formula.verification(rowNo, 'D', 'E', 'B')
+              ,formula.fossil_amount(rowNo, 'F', 'H')
               ,init_row['Amount']]
         rows.append(row)
 
