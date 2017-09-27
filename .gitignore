@@ -3,3 +3,5 @@
 **/creds.json
 **/.cache/**
 **/test_output.json
+.DS_Store
+wordpress/**
