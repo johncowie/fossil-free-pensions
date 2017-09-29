@@ -1,29 +1,6 @@
-- [X] [30] Write function for creating spreadsheet
-- [X] [20] Write function for creating multiple spreadsheets, one for each line in local authority file
-- [X] [20] Write function for creating tab (worksheet?) in spreadsheet
-- [?] [30] Write function for converting grid of values to worksheet
-- [-] [45] Generate first tab (i.e. Full Data, without categorisation part)
-- [X] [60] Write function for generating categorisation formula
-- [ ] [30] Figure out how to save spreadsheet into a specific folder
-           - [ ] Figure out how to create a folder
-           - [ ] Figure out how to get ID of folder
-           - [ ] Figure out how to set ID as parent of other spreadsheets
-
-- [ ] [20] Add categorisation formula to Full Data part
-- [ ] [45] Generate second tab (i.e. Fossil Fuel Direct Investments)
-- [ ] [45] Generate third tab (i.e. Pooled Funds & Total Fossil Fuels)
-- [ ] [  ] Think about what happens if data changes..
-- [ ] [  ] Pull categories for formula from spreadsheet
-- [ ] [  ] Create starting list for categorisation from 200 companies
-
-----
-- [ ] [15] Create function for deleting all files by API user
-- [ ] [  ] Organise code to create a folder (that's editable), and files (that are editable)
-- [ ] [  ] Check that write also means that I can share it
-
-
-- Remainder of Sunday
-  - tidy up directory code
-  - write some code for generating all stage 1 files in a folder
-  - generate folder of files and share with Sarah, explaining that she just needs to fill out the three columns
-  
+- [X] Write test for function that generates all tabs for spreadsheet
+- [X] Write function
+- [X] Write test for function that generates all spreadsheets
+- [X] Extend function to spit out all investment funds
+- [ ] Extend function to spit out all that are categorised by oil/coal or pooled
+- [X] Write function that flattens list of lists into single list
