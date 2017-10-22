@@ -1,7 +1,7 @@
 import formula
 
 def test_fossil_amount_formula():
-    expected = '=IF(F17="0",F17,H17)'
+    expected = '=IF(F17="0",0,H17)'
     assert expected == formula.fossil_amount(17, 'F', 'H')
 
 def test_verification_formula():
@@ -12,5 +12,17 @@ def test_verification_formula():
     assert expected == formula.verification(12, 'D', 'E', 'B')
 
 def test_pattern_match_formula():
-    expected = '=IFS(REGEXMATCH(A1, "abc"), "A", REGEXMATCH(A1, "def"), "B")'
-    assert formula.pattern_match("A1", [["A", "abc"], ["B", "def"]]) == expected
+    expected1 = '=ARRAYFORMULA(IFS(REGEXMATCH(A1, "abc"), "A", REGEXMATCH(A1, "def"), "B", TRUE, "0"))'
+    expected2 = '=ARRAYFORMULA(IFS(REGEXMATCH(B:B, "abc"), "A", REGEXMATCH(B:B, "def"), "B", TRUE, "0"))'
+    categories = [{'name':'A', 'pattern':'abc'}
+                 ,{'name':'B', 'pattern':'def'}]
+    assert formula.pattern_match("A1", categories) == expected1
+    assert formula.pattern_match("B:B", categories) == expected2
+
+def test_largest_value():
+    expected = "=LARGE('Full Data'!G:G,1)"
+    assert formula.largest_value('Full Data', 'G', 1) == expected
+
+def test_largest_value_name():
+    expected = "=INDEX('Full Data'!F:F,MATCH(LARGE('Full Data'!G:G,1),'Full Data'!G:G,0))"
+    assert formula.largest_value_name('Full Data', 'G', 'F', 1) == expected

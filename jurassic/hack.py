@@ -77,20 +77,20 @@ def make_initial_data(api):
     api.add_permission(folder_id, 'sarahs@platformlondon.org', True, True)
 
 
-api = Spreadsheet('creds.json')
 # api.delete_all_created_files()
 # make_initial_data(api)
-def share_all_files(email):
+def share_all_files(api, email):
     count = 0
     for f in api.all_files():
         count = count + 1
         if f['mimeType'] == 'application/vnd.google-apps.folder':
-            api.add_permission(f['id'], email, True, True)
+            api.add_permission(f['id'], email, False, True)
         else:
             api.add_permission(f['id'], email, False, True)
     print("Count: " + str(count))
 
-# share_all_files('sarahshoraka77@gmail.com')
+# api = Spreadsheet('creds/creds.json')
+# share_all_files(api, 'jura-720@jurassic-stage5-2.iam.gserviceaccount.com')
 
 # api.create_spreadsheet_v2('Blobby')
 # api.delete_all()

@@ -1,6 +1,7 @@
-- [X] Write test for function that generates all tabs for spreadsheet
-- [X] Write function
-- [X] Write test for function that generates all spreadsheets
-- [X] Extend function to spit out all investment funds
-- [ ] Extend function to spit out all that are categorised by oil/coal or pooled
-- [X] Write function that flattens list of lists into single list
+- [ ] Creation: check if spreadsheet already exists (for retrying)
+- [ ] Create a retry flag that only tries to create missing spreadsheets
+- [ ] Put in delay between sheet creation
+- [ ] Create tabs in metadata spreadsheet for matched and unmatched
+- [ ] Create function for converting stage 3 pooled tab into stage 5 pooled tab
+- [ ] Create function for creating master spreadsheet for import
+- [ ] Separate out metadata generation

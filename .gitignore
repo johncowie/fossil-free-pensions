@@ -5,3 +5,4 @@
 **/test_output.json
 .DS_Store
 wordpress/**
+**/creds/**
