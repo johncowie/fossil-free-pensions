@@ -19,6 +19,13 @@ def test_pattern_match_formula():
     assert formula.pattern_match("A1", categories) == expected1
     assert formula.pattern_match("B:B", categories) == expected2
 
+def test_pool_match_formula():
+    expected = '=ARRAYFORMULA(IFS(A:A="Company 1", "yes", A:A="Company 3", "yes", TRUE, ""))'
+    pooled_info = [{'Is Pooled? (Y/N)':'Y', 'Name':'Company 1'}
+                  ,{'Is Pooled? (Y/N)':'N', 'Name':'Company 2'}
+                  ,{'Is Pooled? (Y/N)':'Y', 'Name':'Company 3'}]
+    assert formula.pooled_match("A:A", pooled_info) == expected
+
 def test_largest_value():
     expected = "=LARGE('Full Data'!G:G,1)"
     assert formula.largest_value('Full Data', 'G', 1) == expected

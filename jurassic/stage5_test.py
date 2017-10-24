@@ -7,6 +7,29 @@ def fund_record(investment_name, amount, category):
             'Amount':amount,
             'Sub-category/Classification':category}
 
+def test_pooled_data_tab():
+    expected = [['Pooled fund estimate', percentage(10.0)]
+               ,[None, 'Amount', 'Percentage', 'Name', 'Pooled fund', 'Estimated fossil fuel holdings', 'in % of total holdings']
+               ,[]
+               ,['Total', 'TODO_AMOUNT_FORMULA']
+               ,[1, formula.largest_value('Full Data', 'H', 1), "=B5/$B$4"]
+               ,[2, formula.largest_value('Full Data', 'H', 2), "=B6/$B$4"]
+               ,[3, formula.largest_value('Full Data', 'H', 3), "=B7/$B$4"]
+               ,[4, formula.largest_value('Full Data', 'H', 4), "=B8/$B$4"]
+               ,[5, formula.largest_value('Full Data', 'H', 5), "=B9/$B$4"]
+               ,[6, formula.largest_value('Full Data', 'H', 6), "=B10/$B$4"]
+               ,[7, formula.largest_value('Full Data', 'H', 7), "=B11/$B$4"]
+               ,[8, formula.largest_value('Full Data', 'H', 8), "=B12/$B$4"]
+               ,[9, formula.largest_value('Full Data', 'H', 9), "=B13/$B$4"]
+               ,[10, formula.largest_value('Full Data', 'H', 10), "=B14/$B$4"]
+               ,[11, formula.largest_value('Full Data', 'H', 11), "=B15/$B$4"]
+               ,[12, formula.largest_value('Full Data', 'H', 12), "=B16/$B$4"]
+               ,[13, formula.largest_value('Full Data', 'H', 13), "=B17/$B$4"]
+               ,[14, formula.largest_value('Full Data', 'H', 14), "=B18/$B$4"]
+               ,[15, formula.largest_value('Full Data', 'H', 15), "=B19/$B$4"]
+               ]
+    assert expected == stage5.pooled_data_tab()
+
 def test_full_data_tab():
     init_data = [fund_record('BP Oil', '23400', 'category1'),
                  fund_record('Big Coal', '345.3', 'category2'),
@@ -16,8 +39,8 @@ def test_full_data_tab():
     coal_patterns = [{'name':'King Coal', 'pattern':'^king coal'}]
     expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Oil/Gas Companies', 'Coal Companies', 'Verification', 'Fossil Fuel Amounts', 'All Amounts']
                 ,['A fund', 'BP Oil', 'category1', formula.pattern_match('B2:B', oil_patterns), formula.pattern_match('B2:B', coal_patterns), formula.verification(2, 'D', 'E', 'B'), formula.fossil_amount(2, 'F', 'H'), number_cell(23400.0)]
-                ,['A fund', 'Big Coal', 'category2', "", "", formula.verification(3, 'D', 'E', 'B'), formula.fossil_amount(3, 'F', 'H'), number_cell(345.3)]
-                ,['A fund', 'Evil Doers', 'category3', "", "", formula.verification(4, 'D', 'E', 'B'), formula.fossil_amount(4, 'F', 'H'),number_cell(455.4)]
+                ,['A fund', 'Big Coal', 'category2', None, None, formula.verification(3, 'D', 'E', 'B'), formula.fossil_amount(3, 'F', 'H'), number_cell(345.3)]
+                ,['A fund', 'Evil Doers', 'category3', None, None, formula.verification(4, 'D', 'E', 'B'), formula.fossil_amount(4, 'F', 'H'),number_cell(455.4)]
                 ]
     assert expected == stage5.full_data_tab('A fund', init_data, oil_patterns, coal_patterns)
 
@@ -66,9 +89,9 @@ def test_all_spreadsheets():
                       ,'PF3':stage5.gen_spreadsheet('PF3', pension_fund3, oil_patterns, coal_patterns)}
     expected_meta = {'Investments': ['BP Oil', 'Big Coal', 'Coca-cola', 'Gazprom']}
     expected_meta = [['Holding', 'Oil Match', 'Coal Match']
-                    ,['BP Oil', formula.pattern_match('A2', oil_patterns), formula.pattern_match('A2', coal_patterns)]
-                    ,['Big Coal', formula.pattern_match('A3', oil_patterns), formula.pattern_match('A3', coal_patterns)]
-                    ,['Coca-cola', formula.pattern_match('A4', oil_patterns), formula.pattern_match('A4', coal_patterns)]
-                    ,['Gazprom', formula.pattern_match('A5', oil_patterns), formula.pattern_match('A5', coal_patterns)]]
+                    ,['BP Oil', formula.pattern_match('A2:A', oil_patterns), formula.pattern_match('A2:A', coal_patterns)]
+                    ,['Big Coal', None, None]
+                    ,['Coca-cola', None, None]
+                    ,['Gazprom', None, None]]
     expected = {'sheets':expected_sheets, 'metadata':{'METADATA-MATCHES':{'Matches':expected_meta}}}
     assert stage5.all_spreadsheets(init_data, oil_patterns, coal_patterns) == expected

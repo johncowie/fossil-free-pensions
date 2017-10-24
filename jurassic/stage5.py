@@ -41,6 +41,7 @@ def create_spreadsheet(api, parent_folder_id, name, tabs, emails, can_edit=False
         wsi = api.create_worksheet(ss.id, tab, tab_data)
         api.set_cells(ss.id, wsi, tab_data)
     print("Created spreadsheet for: " + name + "")
+    return ss.id
 
 def prepare_folder(api, folder_name, retry):
     if retry:
@@ -65,10 +66,11 @@ def write_stage5(api, output_data, folder_name, emails, retry):
     output_metadata = output_data['metadata']
     for mkey in output_metadata:
         tabs = output_metadata[mkey]
-        create_spreadsheet(api, folder_id, mkey, tabs, emails, True)
-    for skey in output_sheets:
-        tabs = output_sheets[skey]
-        create_spreadsheet(api, folder_id, skey, tabs, emails, True)
+        sid = create_spreadsheet(api, folder_id, mkey, tabs, emails, True)
+        api.transfer_ownership(sid, 'john.a.cowie@gmail.com')
+    # for skey in output_sheets:
+    #     tabs = output_sheets[skey]
+    #     create_spreadsheet(api, folder_id, skey, tabs, emails, True)
 
 
 def create_all_spreadsheets_sf(api, input_folder_name, folder_name, emails, retry, inclusion_list=None):
@@ -95,12 +97,25 @@ def gen_metadata(investments, oil_patterns, coal_patterns):
     rows = []
     for investment in investments:
         cell_id = 'A' + str(len(rows) + 2)
-        row = [investment
-              ,formula.pattern_match(cell_id, oil_patterns)
-              ,formula.pattern_match(cell_id, coal_patterns)]
+        row = [investment, None, None]
+        if(cell_id == 'A2'):
+            row = [investment
+                  ,formula.pattern_match('A2:A', oil_patterns)
+                  ,formula.pattern_match('A2:A', coal_patterns)]
         rows.append(row)
     return {'METADATA-MATCHES':{'Matches': [headers] + rows}}
 
+def pooled_data_tab():
+    top_bit =  [['Pooled fund estimate', spreadsheet.percentage(10.0)]
+               ,[None, 'Amount', 'Percentage', 'Name', 'Pooled fund', 'Estimated fossil fuel holdings', 'in % of total holdings']
+               ,[]
+               ,['Total', 'TODO_AMOUNT_FORMULA']]
+    pooled_rows = []
+    for i in range(1, 16):
+        pc_formula = lambda i:"=B{0}/$B$4".format(i)
+        row = [i, formula.largest_value('Full Data', 'H', i), pc_formula(i+4)]
+        pooled_rows.append(row)
+    return top_bit + pooled_rows
 
 # Figure out column letters from headers?
 def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
@@ -118,19 +133,19 @@ def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
     for init_row in init_data:
         rowNo = len(rows) + 1
         cellId = 'B'+str(rowNo)
-        oil_formula = ""
-        coal_formula = ""
+        oil_formula = None
+        coal_formula = None
         if(cellId == 'B2'):
             oil_formula=formula.pattern_match('B2:B', oil_patterns)
             coal_formula=formula.pattern_match('B2:B', coal_patterns)
         row = [fund_name
-              ,init_row['Description of Holding']
-              ,init_row['Sub-category/Classification']
+              ,init_row.get('Description of Holding', '')
+              ,init_row.get('Sub-category/Classification', '')
               ,oil_formula
               ,coal_formula
               ,formula.verification(rowNo, 'D', 'E', 'B')
               ,formula.fossil_amount(rowNo, 'F', 'H')
-              ,spreadsheet.number_cell(init_row['Amount'])
+              ,spreadsheet.number_cell(init_row.get('Amount', ''))
               ]
         rows.append(row)
 

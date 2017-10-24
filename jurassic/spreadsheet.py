@@ -29,11 +29,14 @@ def formula_cell(v):
 
 def number_cell(v):
     n = v
-    if isinstance(v, str):
-        n = float(v.replace(',', ''))
-    else:
-        n = float(v)
-    return {'userEnteredValue': {'numberValue': n}}
+    try:
+        if isinstance(v, str):
+            n = float(v.replace(',', ''))
+        else:
+            n = float(v)
+        return {'userEnteredValue': {'numberValue': n}}
+    except:
+        return {}
 
 def cell(v):
     if isinstance(v, str):
@@ -43,6 +46,8 @@ def cell(v):
             return string_cell(v)
     elif isinstance(v, (int, float, complex)):
         return number_cell(v)
+    elif v is None:
+        return {}
     else:
         return v
 
