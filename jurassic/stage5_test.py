@@ -14,7 +14,7 @@ def test_pooled_data_tab():
                ,[None, 'Amount', 'Percentage', 'Name', 'Pooled fund', 'Estimated fossil fuel holdings', 'in % of total holdings']
                ,[]
                ,['Total', "='Fossil Fuel Direct Investments'!B2"]
-               ,[1, formula.largest_value('Full Data', 'H', 1), "=B5/$B$4", formula.largest_value_name('Full Data', 'H', 'B', 1), formula.pooled_match('D5:D', pool_matches), '=IF(E5="yes",B5*$B$1,0)', '=F5/$B$4']
+               ,[1, formula.largest_value('Full Data', 'H', 1), "=B5/$B$4", formula.largest_value_name('Full Data', 'H', 'B', 1), formula.pooled_match('D5:D19', pool_matches), '=IF(E5="yes",B5*$B$1,0)', '=F5/$B$4']
                ,[2, formula.largest_value('Full Data', 'H', 2), "=B6/$B$4", formula.largest_value_name('Full Data', 'H', 'B', 2), None, '=IF(E6="yes",B6*$B$1,0)', '=F6/$B$4']
                ,[3, formula.largest_value('Full Data', 'H', 3), "=B7/$B$4", formula.largest_value_name('Full Data', 'H', 'B', 3), None, '=IF(E7="yes",B7*$B$1,0)', '=F7/$B$4']
                ,[4, formula.largest_value('Full Data', 'H', 4), "=B8/$B$4", formula.largest_value_name('Full Data', 'H', 'B', 4), None, '=IF(E8="yes",B8*$B$1,0)', '=F8/$B$4']
@@ -35,7 +35,7 @@ def test_pooled_data_tab():
                ,[None, None, None, None, 'Total fossil fuels', '=F20+F21', '=G20+G21']
                ,[None, None, None, None, 'Total holdings', "='Fossil Fuel Direct Investments'!B2"]
                ]
-    assert expected == stage5.pooled_data_tab(pool_matches)
+    assert expected == stage5.pooled_data_tab(pool_matches, 20)
 
 def test_full_data_tab():
     init_data = [fund_record('BP Oil', '23400', 'category1'),
@@ -80,9 +80,10 @@ def test_all_tabs():
                  }
     oil_patterns = [{'name':'BP', 'pattern':'^BP*'}]
     coal_patterns = [{'name':'King Coal', 'pattern':'^king coal'}]
-    expected =  [('Full Data', stage5.full_data_tab('A fund', init_data['data'], oil_patterns, coal_patterns))
-                ,('Fossil Fuel Direct Investments', stage5.direct_investments_tab())
-                ,('Pooled Funds & Total Fossil Fuels', stage5.pooled_data_tab(init_data['pooled']))]
+    expected = [ ('Full Data', stage5.full_data_tab('A fund', init_data['data'], oil_patterns, coal_patterns))
+               , ('Fossil Fuel Direct Investments', stage5.direct_investments_tab())
+               , ('Pooled Funds & Total Fossil Fuels', stage5.pooled_data_tab(init_data['pooled'], 2))
+               , ('Overview figures', stage5.overview_tab())]
     assert stage5.gen_spreadsheet('A fund', init_data, oil_patterns, coal_patterns) == expected
 
 # FIXME sort out this test
