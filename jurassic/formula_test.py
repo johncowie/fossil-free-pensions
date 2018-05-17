@@ -1,5 +1,19 @@
 import formula
 
+def test_is_pooled():
+    row = lambda x:{'Is Pooled? (Y/N)':x}
+    tests = [('Y', True)
+            ,('yes', True)
+            ,('Yes', True)
+            ,(' Y ', True)
+            ,('no', False)
+            ,('  ', False)
+            ,('', False)
+            ,('N', False)
+            ]
+    for t in tests:
+        assert formula.is_pooled(row(t[0])) == t[1]
+
 def test_fossil_amount_formula():
     expected = '=IF(F17="0",0,H17)'
     assert expected == formula.fossil_amount(17, 'F', 'H')
@@ -25,6 +39,9 @@ def test_pool_match_formula():
                   ,{'Is Pooled? (Y/N)':'N', 'Name':'Company 2'}
                   ,{'Is Pooled? (Y/N)':'Y', 'Name':'Company 3'}]
     assert formula.pooled_match("A:A", pooled_info) == expected
+    assert formula.pooled_match("A:A", []) == None
+    assert formula.pooled_match("A:A", [{'Is Pooled? (Y/N)':'N'}]) == None
+
 
 def test_largest_value():
     expected = "=LARGE('Full Data'!G:G,1)"

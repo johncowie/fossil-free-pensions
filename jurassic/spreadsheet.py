@@ -31,7 +31,7 @@ def number_cell(v):
     n = v
     try:
         if isinstance(v, str):
-            n = float(v.replace(',', ''))
+            n = float(v.replace(',', '').replace('£', ''))
         else:
             n = float(v)
         return {'userEnteredValue': {'numberValue': n}}
@@ -130,7 +130,8 @@ class Spreadsheet:
     # returns list of dicts -> {'id':<id>, 'name':<name>}
     def find_files_in_folder_by_id(self, folder_id):
         file_query = "'{0}' in parents".format(folder_id)
-        r = self.drive.files().list(q=file_query, fields='files(id, name)').execute()
+        # r = self.drive.files().list(q=file_query, fields='files(id, name, selfLink)').execute()
+        r = self.drive.files().list(q=file_query).execute()
         return r['files']
 
     def find_files_in_folder(self, folder_name):
@@ -146,7 +147,10 @@ class Spreadsheet:
         if folder:
             files = self.find_files_in_folder_by_id(folder['id'])
             for f in files:
-                self.gc.del_spreadsheet(f['id'])
+                try:
+                    self.gc.del_spreadsheet(f['id'])
+                except Exception as e:
+                    print("Failed to delete: " + f.get('name', '<no-name>') + "  " + str(e))
             if delete_folder:
                 self.drive.files().delete(fileId=folder['id']).execute()
         else:
@@ -195,8 +199,15 @@ class Spreadsheet:
             print(s.title)
             self.gc.del_spreadsheet(s.id)
 
-    def delete_spreadsheet(self, title):
-        print("Deleting spreadsheet: " + title)
-        sh = self.gc.open(title)
-        print("ID: " + sh.id)
-        self.gc.del_spreadsheet(sh.id)
+    def delete_spreadsheet(self, folder_id, title):
+        try:
+            files = self.find_files_in_folder_by_id(folder_id)
+            for f in files:
+                if f['name'] == title:
+                    print("Deleting spreadsheet: " + title)
+                    self.gc.del_spreadsheet(f['id'])
+                    return
+            print("Couldn't find spreadsheet with name: " + title)
+        except Exception as e:
+            print("Failed to delete spreadsheet: " + title)
+            print(e)

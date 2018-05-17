@@ -15,14 +15,17 @@ def get_pool_name(pooled_row):
     return pooled_row.get('Name')
 
 def is_pooled(pooled_row):
-    v = pooled_row.get('Is Pooled? (Y/N)')
-    return v == 'Y'
+    v = pooled_row.get('Is Pooled? (Y/N)', '').strip().lower()
+    return v == 'y' or v == 'yes'
 
 def pooled_match(cell_range, matches):
-    names_to_compare = map(get_pool_name, filter(is_pooled, matches))
+    names_to_compare = list(map(get_pool_name, filter(is_pooled, matches)))
     f = lambda name:'{0}="{1}", "yes"'.format(cell_range, name)
-    s = ', '.join(map(f, names_to_compare))
-    return '=ARRAYFORMULA(IFS({0}, TRUE, ""))'.format(s)
+    if len(names_to_compare) > 0:
+        s = ', '.join(map(f, names_to_compare))
+        return '=ARRAYFORMULA(IFS({0}, TRUE, "no"))'.format(s)
+    else:
+        return "no"
 
 def pattern_match(cell_id, patterns):
     f = lambda pair:'REGEXMATCH({0}, "{1}"), "{2}"'.format(cell_id, pair['pattern'], pair['name'])

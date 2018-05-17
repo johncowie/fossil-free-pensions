@@ -3,6 +3,7 @@ import formula
 import spreadsheet
 import utils
 import json
+import time
 
 def load_oil_categories(ss_api):
     return ss_api.get_records('Categories', 'Oil')
@@ -10,15 +11,38 @@ def load_oil_categories(ss_api):
 def load_coal_categories(ss_api):
     return ss_api.get_records('Categories', 'Coal')
 
+def include_file(filename, inclusion_list, exclusion_list):
+    return (inclusion_list==None and exclusion_list==None) or (inclusion_list==None and filename not in exclusion_list) or (not inclusion_list == None and filename in inclusion_list)
+
+def validate_sheet(data):
+    if len(data['data']) > 0:
+        firstData = data['data'][0]
+        if (not 'Description of Holding' in firstData or
+            not 'Sub-category/Classification' in firstData or
+            not 'Amount' in firstData):
+            print("Invalid: " + str(firstData))
+            return False
+    if len(data['pooled']) > 0:
+        firstPooled = data['pooled'][0]
+        if (not 'Name' in firstPooled or
+            not 'Is Pooled? (Y/N)' in firstPooled):
+            print("Invalid: " + str(firstPooled))
+            return False
+    return True
+
 # files => list of dicts with <id> and <name> keys
 # output => dict of <name>:<records>
-def gather_input_data(api, folder, inclusion_list=None):
+def gather_input_data(api, folder, inclusion_list, exclusion_list):
     d = {}
     for f in api.find_files_in_folder(folder):
-        if (inclusion_list==None or f['name'] in inclusion_list):
+        if include_file(f['name'], inclusion_list, exclusion_list):
             print('gathering data for: ' + f['name'])
             ss = api.open_by_id(f['id'])
-            d[f['name']] = ss.worksheet('Full Data').get_all_records()
+            data = {}
+            data['data'] = ss.worksheet('Full Data').get_all_records()
+            data['pooled'] = ss.worksheet('Pooled').get_all_records()
+            if validate_sheet(data):
+                d[f['name']] = data
             print("Current size: " + str(len(d)))
     return d
 
@@ -33,12 +57,13 @@ def worksheet_index(ss, worksheet_name):
 
 def create_spreadsheet(api, parent_folder_id, name, tabs, emails, can_edit=False):
     print("Creating spreadsheet for: " + name + "...")
+    api.delete_spreadsheet(parent_folder_id, name)
     ss = api.create_spreadsheet(name, parent_folder_id)
     for email in emails:
         api.add_permission(ss.id, email, False, can_edit)
     for tab in tabs:
-        tab_data = tabs[tab]
-        wsi = api.create_worksheet(ss.id, tab, tab_data)
+        tab_data = tab[1]
+        wsi = api.create_worksheet(ss.id, tab[0], tab_data)
         api.set_cells(ss.id, wsi, tab_data)
     print("Created spreadsheet for: " + name + "")
     return ss.id
@@ -50,27 +75,41 @@ def prepare_folder(api, folder_name, retry):
         api.delete_files_in_folder(folder_name)
         return api.create_directory(folder_name)
 
-def read_stage3(api, input_folder_name, inclusion_list=None):
+def read_stage3(api, input_folder_name, inclusion_list=None, exclusion_list=None):
     oil = load_oil_categories(api)
     coal = load_coal_categories(api)
-    input_data = gather_input_data(api, input_folder_name, inclusion_list)
-    return all_spreadsheets(input_data, oil, coal)
+    input_data = gather_input_data(api, input_folder_name, inclusion_list, exclusion_list)
+    return (input_data, oil, coal)
 
-def write_stage5(api, output_data, folder_name, emails, retry):
+# data = (input_data, oil, coal)
+def process_stage3(data):
+    return all_spreadsheets(data[0], data[1], data[2])
+
+def write_stage5(api, progress, output_data, folder_name, emails, retry):
     folder_id = prepare_folder(api, folder_name, retry)
 
     for email in emails:
-        api.add_permission(folder_id, email, False, False)
+        api.add_permission(folder_id, email, False, True)
 
     output_sheets = output_data['sheets']
     output_metadata = output_data['metadata']
-    for mkey in output_metadata:
-        tabs = output_metadata[mkey]
-        sid = create_spreadsheet(api, folder_id, mkey, tabs, emails, True)
-        api.transfer_ownership(sid, 'john.a.cowie@gmail.com')
-    # for skey in output_sheets:
-    #     tabs = output_sheets[skey]
-    #     create_spreadsheet(api, folder_id, skey, tabs, emails, True)
+    # for mkey in output_metadata:
+    #     tabs = output_metadata[mkey]
+    #     sid = create_spreadsheet(api, folder_id, mkey, tabs, emails, True)
+    #     api.transfer_ownership(sid, 'john.a.cowie@gmail.com')
+    pro = progress.get_list()
+    for skey in output_sheets:
+        tabs = output_sheets[skey]
+        if skey in pro:
+            print("Skipping " + skey + " as it's already been done")
+        else:
+            try:
+                create_spreadsheet(api, folder_id, skey, tabs, emails, True)
+                pro = progress.add_to_list(skey)
+            except Exception as e:
+                print("Error creating: " + skey)
+                print(e)
+        # time.sleep(1)
 
 
 def create_all_spreadsheets_sf(api, input_folder_name, folder_name, emails, retry, inclusion_list=None):
@@ -81,16 +120,21 @@ def all_spreadsheets(init_data, oil_patterns, coal_patterns):
     output_sheets = {}
     investments = set()
     for key in init_data:
+        print("Processing: " + key)
         output_sheets[key] = gen_spreadsheet(key, init_data[key], oil_patterns, coal_patterns)
-        for row in init_data[key]:
+        # keep running total of all names - FIXME maybe just have function that pulls this out of loaded data
+        for row in init_data[key]['data']:
             investments.add(row['Description of Holding'])
     investments = list(investments)
     investments.sort()
     return {'sheets':output_sheets, 'metadata':gen_metadata(investments, oil_patterns, coal_patterns)}
 
 def gen_spreadsheet(fund_name, init_data, oil_patterns, coal_patterns):
-    return { 'Full Data':full_data_tab(fund_name, init_data, oil_patterns, coal_patterns)
-            ,'Fossil Fuel Direct Investments':direct_investments_tab()}
+    investments_length = len(init_data['data'])
+    return [ ('Full Data', full_data_tab(fund_name, init_data['data'], oil_patterns, coal_patterns))
+            ,('Fossil Fuel Direct Investments', direct_investments_tab())
+            ,('Pooled Funds & Total Fossil Fuels', pooled_data_tab(init_data['pooled'], investments_length))
+            ,('Overview figures', overview_tab())]
 
 def gen_metadata(investments, oil_patterns, coal_patterns):
     headers = ['Holding', 'Oil Match', 'Coal Match']
@@ -103,19 +147,73 @@ def gen_metadata(investments, oil_patterns, coal_patterns):
                   ,formula.pattern_match('A2:A', oil_patterns)
                   ,formula.pattern_match('A2:A', coal_patterns)]
         rows.append(row)
-    return {'METADATA-MATCHES':{'Matches': [headers] + rows}}
+    return {'METADATA-MATCHES':[('Matches', [headers] + rows)]}
 
-def pooled_data_tab():
-    top_bit =  [['Pooled fund estimate', spreadsheet.percentage(10.0)]
+def overview_tab():
+    row1 = ['Local Authority',
+            'Pension Fund',
+            'Total Fund Amount',
+            'Fossil Fuel Investment',
+            '% Fossil Fuels',
+            'Direct Fossil Fuel Investment',
+            'Indirect Fossil Fuel Investment',
+            "companies[0]['name']",
+            "companies[0]['value']",
+            "companies[1]['name']",
+            "companies[1]['value']",
+            "companies[2]['name']",
+            "companies[2]['value']",
+            "companies[3]['name']",
+            "companies[3]['value']",
+            "companies[4]['name']",
+            "companies[4]['value']",
+            "post_content",
+            "google_doc_url"
+            ]
+    row2 = [ ""
+            ,""
+            ,"='Pooled Funds & Total Fossil Fuels'!F24"
+            ,"='Pooled Funds & Total Fossil Fuels'!F23"
+            ,"='Pooled Funds & Total Fossil Fuels'!G23"
+            ,"='Pooled Funds & Total Fossil Fuels'!F21"
+            ,"='Pooled Funds & Total Fossil Fuels'!F20"
+            ,"='Fossil Fuel Direct Investments'!C9"
+            ,"='Fossil Fuel Direct Investments'!A9"
+            ,"='Fossil Fuel Direct Investments'!C10"
+            ,"='Fossil Fuel Direct Investments'!A10"
+            ,"='Fossil Fuel Direct Investments'!C11"
+            ,"='Fossil Fuel Direct Investments'!A11"
+            ,"='Fossil Fuel Direct Investments'!C12"
+            ,"='Fossil Fuel Direct Investments'!A12"
+            ,"='Fossil Fuel Direct Investments'!C13"
+            ,"='Fossil Fuel Direct Investments'!A13"
+            ,""
+            ,""]
+    return [row1, row2]
+
+
+def pooled_data_tab(pooled_matches, investment_length):
+    top_bit =  [['Pooled fund estimate', spreadsheet.percentage(0.1)]
                ,[None, 'Amount', 'Percentage', 'Name', 'Pooled fund', 'Estimated fossil fuel holdings', 'in % of total holdings']
                ,[]
-               ,['Total', 'TODO_AMOUNT_FORMULA']]
+               ,['Total', "='Fossil Fuel Direct Investments'!B2"]]
     pooled_rows = []
     for i in range(1, 16):
         pc_formula = lambda i:"=B{0}/$B$4".format(i)
-        row = [i, formula.largest_value('Full Data', 'H', i), pc_formula(i+4)]
+        row = [i
+               , formula.largest_value('Full Data', 'H', i) if investment_length >= i else 0
+               , pc_formula(i+4)
+               , formula.largest_value_name('Full Data', 'H', 'B', i) if investment_length >= i else 0
+               , formula.pooled_match('D5:D19', pooled_matches) if i == 1 else None
+               , '=IF(E{0}="yes",B{0}*$B$1,0)'.format(i+4)
+               , '=F{0}/$B$4'.format(i+4)]
         pooled_rows.append(row)
-    return top_bit + pooled_rows
+    totals = [[None, None, None, None, 'Total estimated fossil fuels in largest pooled funds', '=SUM(F5:F19)', '=SUM(G5:G19)']
+             ,[None, None, None, None, 'Total direct fossil fuels', "='Fossil Fuel Direct Investments'!B3", "='Fossil Fuel Direct Investments'!B4"]
+             ,[]
+             ,[None, None, None, None, 'Total fossil fuels', '=F20+F21', '=G20+G21']
+             ,[None, None, None, None, 'Total holdings', "='Fossil Fuel Direct Investments'!B2"]]
+    return top_bit + pooled_rows + totals
 
 # Figure out column letters from headers?
 def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
