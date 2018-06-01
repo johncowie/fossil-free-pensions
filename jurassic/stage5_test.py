@@ -37,6 +37,37 @@ def test_pooled_data_tab():
                ]
     assert expected == stage5.pooled_data_tab(pool_matches, 20)
 
+def test_fracking_pooled_data_tab():
+    pool_matches = [{'Name':'ABC', 'Is Pooled? (Y/N)': 'Y'}
+                   ,{'Name':'DEF', 'Is Pooled? (Y/N)': 'N'}]
+    expected = [['Pooled fund estimate', percentage(0.055)]
+               ,[None, 'Amount', 'Percentage', 'Name', 'Pooled fund', 'Estimated fracking holdings', 'in % of total holdings']
+               ,[]
+               ,['Total', "='Fracking Direct Investments'!B2"]
+               ,[1, formula.largest_value('Full Data', 'G', 1), "=B5/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 1), formula.pooled_match('D5:D19', pool_matches), '=IF(E5="yes",B5*$B$1,0)', '=F5/$B$4']
+               ,[2, formula.largest_value('Full Data', 'G', 2), "=B6/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 2), None, '=IF(E6="yes",B6*$B$1,0)', '=F6/$B$4']
+               ,[3, formula.largest_value('Full Data', 'G', 3), "=B7/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 3), None, '=IF(E7="yes",B7*$B$1,0)', '=F7/$B$4']
+               ,[4, formula.largest_value('Full Data', 'G', 4), "=B8/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 4), None, '=IF(E8="yes",B8*$B$1,0)', '=F8/$B$4']
+               ,[5, formula.largest_value('Full Data', 'G', 5), "=B9/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 5), None, '=IF(E9="yes",B9*$B$1,0)', '=F9/$B$4']
+               ,[6, formula.largest_value('Full Data', 'G', 6), "=B10/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 6), None, '=IF(E10="yes",B10*$B$1,0)', '=F10/$B$4']
+               ,[7, formula.largest_value('Full Data', 'G', 7), "=B11/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 7), None, '=IF(E11="yes",B11*$B$1,0)', '=F11/$B$4']
+               ,[8, formula.largest_value('Full Data', 'G', 8), "=B12/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 8), None, '=IF(E12="yes",B12*$B$1,0)', '=F12/$B$4']
+               ,[9, formula.largest_value('Full Data', 'G', 9), "=B13/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 9), None, '=IF(E13="yes",B13*$B$1,0)', '=F13/$B$4']
+               ,[10, formula.largest_value('Full Data', 'G', 10), "=B14/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 10), None, '=IF(E14="yes",B14*$B$1,0)', '=F14/$B$4']
+               ,[11, formula.largest_value('Full Data', 'G', 11), "=B15/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 11), None, '=IF(E15="yes",B15*$B$1,0)', '=F15/$B$4']
+               ,[12, formula.largest_value('Full Data', 'G', 12), "=B16/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 12), None, '=IF(E16="yes",B16*$B$1,0)', '=F16/$B$4']
+               ,[13, formula.largest_value('Full Data', 'G', 13), "=B17/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 13), None, '=IF(E17="yes",B17*$B$1,0)', '=F17/$B$4']
+               ,[14, formula.largest_value('Full Data', 'G', 14), "=B18/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 14), None, '=IF(E18="yes",B18*$B$1,0)', '=F18/$B$4']
+               ,[15, formula.largest_value('Full Data', 'G', 15), "=B19/$B$4", formula.largest_value_name('Full Data', 'G', 'B', 15), None, '=IF(E19="yes",B19*$B$1,0)', '=F19/$B$4']
+               ,[None, None, None, None, 'Total estimated fracking in largest pooled funds', '=SUM(F5:F19)', '=SUM(G5:G19)']
+               ,[None, None, None, None, 'Total direct fracking', "='Fracking Direct Investments'!B3", "='Fracking Direct Investments'!B4"]
+               ,[]
+               ,[None, None, None, None, 'Total fracking', '=F20+F21', '=G20+G21']
+               ,[None, None, None, None, 'Total holdings', "='Fracking Direct Investments'!B2"]
+               ]
+    assert expected == stage5.fracking_pooled_data_tab(pool_matches, 20)
+    
+
 def test_full_data_tab():
     init_data = [fund_record('BP Oil', '23400', 'category1'),
                  fund_record('Big Coal', '345.3', 'category2'),

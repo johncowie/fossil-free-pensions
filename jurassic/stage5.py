@@ -215,6 +215,30 @@ def pooled_data_tab(pooled_matches, investment_length):
              ,[None, None, None, None, 'Total holdings', "='Fossil Fuel Direct Investments'!B2"]]
     return top_bit + pooled_rows + totals
 
+def fracking_pooled_data_tab(pooled_matches, investment_length):
+    top_bit =  [['Pooled fund estimate', spreadsheet.percentage(0.055)]
+               ,[None, 'Amount', 'Percentage', 'Name', 'Pooled fund', 'Estimated fracking holdings', 'in % of total holdings']
+               ,[]
+               ,['Total', "='Fracking Direct Investments'!B2"]]
+    pooled_rows = []
+    for i in range(1, 16):
+        pc_formula = lambda i:"=B{0}/$B$4".format(i)
+        row = [i
+               , formula.largest_value('Full Data', 'G', i) if investment_length >= i else 0
+               , pc_formula(i+4)
+               , formula.largest_value_name('Full Data', 'G', 'B', i) if investment_length >= i else 0
+               , formula.pooled_match('D5:D19', pooled_matches) if i == 1 else None
+               , '=IF(E{0}="yes",B{0}*$B$1,0)'.format(i+4)
+               , '=F{0}/$B$4'.format(i+4)]
+        pooled_rows.append(row)
+    totals = [[None, None, None, None, 'Total estimated fracking in largest pooled funds', '=SUM(F5:F19)', '=SUM(G5:G19)']
+             ,[None, None, None, None, 'Total direct fracking', "='Fracking Direct Investments'!B3", "='Fracking Direct Investments'!B4"]
+             ,[]
+             ,[None, None, None, None, 'Total fracking', '=F20+F21', '=G20+G21']
+             ,[None, None, None, None, 'Total holdings', "='Fracking Direct Investments'!B2"]]
+    return top_bit + pooled_rows + totals
+    
+
 # Figure out column letters from headers?
 def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
     headers = ['Name of Local Authority Pension Fund'
