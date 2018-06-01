@@ -255,7 +255,7 @@ def fracking_full_data_tab(fund_name, init_data, fracking_patterns):
               ,'Sub-category/Classification'
               ,'Fracking Companies'
               ,'Verification'
-              ,'Fossil Fuel Amounts'
+              ,'Fracking Amounts'
               ,'All Amounts']
 
     rows = [headers]
@@ -300,6 +300,28 @@ def direct_investments_tab():
             ,[formula.largest_value('Full Data', 'G', 8), spreadsheet.percentage("=A16/$B$2"), formula.largest_value_name('Full Data', 'G', 'F', 8)]
             ,[formula.largest_value('Full Data', 'G', 9), spreadsheet.percentage("=A17/$B$2"), formula.largest_value_name('Full Data', 'G', 'F', 9)]
             ,[formula.largest_value('Full Data', 'G', 10), spreadsheet.percentage("=A18/$B$2"), formula.largest_value_name('Full Data', 'G', 'F', 10)]
+            ]
+
+
+def fracking_direct_investments_tab():
+    return [ ['Name', "='Full Data'!A2"]
+            ,['Total holdings', "=SUM('Full Data'!G1:G)"]
+            ,['Total fracking holdings', "=SUM('Full Data'!F2:F)"]
+            ,['Percentage in fracking', spreadsheet.percentage("=B3/B2")]
+            ,[]
+            ,[]
+            ,['Top 10 Fracking Holdings', '', '', '', 'This excludes holdings through pooled funds - see next sheet']
+            ,['Amount', 'Percentage', 'Name']
+            ,[formula.largest_value('Full Data', 'F', 1), spreadsheet.percentage("=A9/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 1)]
+            ,[formula.largest_value('Full Data', 'F', 2), spreadsheet.percentage("=A10/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 2)]
+            ,[formula.largest_value('Full Data', 'F', 3), spreadsheet.percentage("=A11/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 3)]
+            ,[formula.largest_value('Full Data', 'F', 4), spreadsheet.percentage("=A12/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 4)]
+            ,[formula.largest_value('Full Data', 'F', 5), spreadsheet.percentage("=A13/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 5)]
+            ,[formula.largest_value('Full Data', 'F', 6), spreadsheet.percentage("=A14/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 6)]
+            ,[formula.largest_value('Full Data', 'F', 7), spreadsheet.percentage("=A15/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 7)]
+            ,[formula.largest_value('Full Data', 'F', 8), spreadsheet.percentage("=A16/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 8)]
+            ,[formula.largest_value('Full Data', 'F', 9), spreadsheet.percentage("=A17/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 9)]
+            ,[formula.largest_value('Full Data', 'F', 10), spreadsheet.percentage("=A18/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 10)]
             ]
 
 # test_batch_update()

@@ -57,7 +57,7 @@ def test_fracking_full_data_tab():
                  fund_record('Evil Doers', '455.4', 'category3')]
     fracking_patterns = [{'name':'BP', 'pattern':'^BP*'},
                          {'name':'Shell', 'pattern':'shell'}]
-    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Fracking Companies',  'Verification', 'Fossil Fuel Amounts', 'All Amounts']
+    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Fracking Companies',  'Verification', 'Fracking Amounts', 'All Amounts']
                 ,['A fund', 'BP Oil', 'category1', formula.pattern_match('B2:B', fracking_patterns), formula.verification_1col(2, 'D', 'B'), formula.fossil_amount(2, 'E', 'G'), number_cell(23400.0)]
                 ,['A fund', 'Big Coal', 'category2', None, formula.verification_1col(3, 'D', 'B'), formula.fossil_amount(3, 'E', 'G'), number_cell(345.3)]
                 ,['A fund', 'Evil Doers', 'category3', None, formula.verification_1col(4, 'D', 'B'), formula.fossil_amount(4, 'E', 'G'),number_cell(455.4)]
@@ -86,6 +86,28 @@ def test_direct_investments_tab():
                 ]
     assert stage5.direct_investments_tab() == expected
 
+def test_fracking_direct_investments_tab():
+    expected = [ ['Name', "='Full Data'!A2"]
+                ,['Total holdings', "=SUM('Full Data'!G1:G)"]
+                ,['Total fracking holdings', "=SUM('Full Data'!F2:F)"]
+                ,['Percentage in fracking', percentage("=B3/B2")]
+                ,[]
+                ,[]
+                ,['Top 10 Fracking Holdings', '', '', '', 'This excludes holdings through pooled funds - see next sheet']
+                ,['Amount', 'Percentage', 'Name']
+                ,[formula.largest_value('Full Data', 'F', 1), percentage("=A9/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 1)]
+                ,[formula.largest_value('Full Data', 'F', 2), percentage("=A10/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 2)]
+                ,[formula.largest_value('Full Data', 'F', 3), percentage("=A11/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 3)]
+                ,[formula.largest_value('Full Data', 'F', 4), percentage("=A12/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 4)]
+                ,[formula.largest_value('Full Data', 'F', 5), percentage("=A13/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 5)]
+                ,[formula.largest_value('Full Data', 'F', 6), percentage("=A14/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 6)]
+                ,[formula.largest_value('Full Data', 'F', 7), percentage("=A15/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 7)]
+                ,[formula.largest_value('Full Data', 'F', 8), percentage("=A16/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 8)]
+                ,[formula.largest_value('Full Data', 'F', 9), percentage("=A17/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 9)]
+                ,[formula.largest_value('Full Data', 'F', 10), percentage("=A18/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 10)]
+                ]
+    assert stage5.fracking_direct_investments_tab() == expected
+    
 def test_all_tabs():
     init_data = {'data': [fund_record('BP Oil', '23400', 'category1'),
                           fund_record('Big Coal', '345.3', 'category2')]
