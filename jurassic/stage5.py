@@ -129,12 +129,32 @@ def all_spreadsheets(init_data, oil_patterns, coal_patterns):
     investments.sort()
     return {'sheets':output_sheets, 'metadata':gen_metadata(investments, oil_patterns, coal_patterns)}
 
+def fracking_all_spreadsheets(init_data, fracking_patterns):
+    output_sheets = {}
+    investments = set()
+    for key in init_data:
+        print("Processing: " + key)
+        output_sheets[key] = fracking_gen_spreadsheet(key, init_data[key], fracking_patterns)
+        # keep running total of all names - FIXME maybe just have function that pulls this out of loaded data
+        for row in init_data[key]['data']:
+            investments.add(row['Description of Holding'])
+    investments = list(investments)
+    investments.sort()
+    return {'sheets':output_sheets, 'metadata':fracking_gen_metadata(investments, fracking_patterns)}    
+
 def gen_spreadsheet(fund_name, init_data, oil_patterns, coal_patterns):
     investments_length = len(init_data['data'])
     return [ ('Full Data', full_data_tab(fund_name, init_data['data'], oil_patterns, coal_patterns))
             ,('Fossil Fuel Direct Investments', direct_investments_tab())
             ,('Pooled Funds & Total Fossil Fuels', pooled_data_tab(init_data['pooled'], investments_length))
             ,('Overview figures', overview_tab())]
+
+def fracking_gen_spreadsheet(fund_name, init_data, fracking_patterns):
+    investments_length = len(init_data['data'])
+    return [ ('Full Data', fracking_full_data_tab(fund_name, init_data['data'], fracking_patterns))
+            ,('Fracking Direct Investments', direct_investments_tab())
+            ,('Pooled Funds & Total Fracking', pooled_data_tab(init_data['pooled'], investments_length))
+            ,('Overview figures', overview_tab())]    
 
 def gen_metadata(investments, oil_patterns, coal_patterns):
     headers = ['Holding', 'Oil Match', 'Coal Match']
@@ -148,6 +168,19 @@ def gen_metadata(investments, oil_patterns, coal_patterns):
                   ,formula.pattern_match('A2:A', coal_patterns)]
         rows.append(row)
     return {'METADATA-MATCHES':[('Matches', [headers] + rows)]}
+
+def fracking_gen_metadata(investments, fracking_patterns):
+    headers = ['Holding', 'Fracking Match']
+    rows = []
+    for investment in investments:
+        cell_id = 'A' + str(len(rows) + 2)
+        row = [investment, None]
+        if(cell_id == 'A2'):
+            row = [investment
+                  ,formula.pattern_match('A2:A', fracking_patterns)]
+        rows.append(row)
+    return {'METADATA-MATCHES':[('Matches', [headers] + rows)]}
+
 
 def overview_tab():
     row1 = ['Local Authority',
