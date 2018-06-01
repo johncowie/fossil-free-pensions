@@ -153,12 +153,15 @@ def test_all_tabs():
     assert stage5.gen_spreadsheet('A fund', init_data, oil_patterns, coal_patterns) == expected
 
 # FIXME sort out this test
-def xtest_all_spreadsheets():
-    pension_fund1 = [(fund_record('BP Oil', '1000', 'c1')),
-                     (fund_record('Big Coal', '345.3', 'c2'))]
-    pension_fund2 = [(fund_record('Gazprom', '2000', 'c1'))
-                    ,(fund_record('Coca-cola', '3000', 'c2'))]
-    pension_fund3 = [(fund_record('BP Oil', '2000', 'c1'))]
+def test_all_spreadsheets():
+    pension_fund1 = {'data': [(fund_record('BP Oil', '1000', 'c1')),
+                              (fund_record('Big Coal', '345.3', 'c2'))]
+                    ,'pooled':[]}
+    pension_fund2 = {'data': [(fund_record('Gazprom', '2000', 'c1'))
+                              ,(fund_record('Coca-cola', '3000', 'c2'))]
+                     ,'pooled':[]}
+    pension_fund3 = {'data': [(fund_record('BP Oil', '2000', 'c1'))]
+                     ,'pooled':[]}
     oil_patterns = [{'name':'BP Oil', 'pattern':'^BP'}, {'name':'Gazprom', 'pattern':'gazprom-regex'}]
     coal_patterns = [{'name':'Big Coal', 'pattern':'coal_pattern'}]
     init_data = {'PF1': pension_fund1, 'PF2': pension_fund2, 'PF3': pension_fund3}
@@ -171,7 +174,7 @@ def xtest_all_spreadsheets():
                     ,['Big Coal', None, None]
                     ,['Coca-cola', None, None]
                     ,['Gazprom', None, None]]
-    expected = {'sheets':expected_sheets, 'metadata':{'METADATA-MATCHES':{'Matches':expected_meta}}}
+    expected = {'sheets':expected_sheets, 'metadata':{'METADATA-MATCHES':[('Matches', expected_meta)]}}
     assert stage5.all_spreadsheets(init_data, oil_patterns, coal_patterns) == expected
 
 def test_include_file():
