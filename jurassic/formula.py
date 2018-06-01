@@ -11,6 +11,12 @@ def verification(row, oil_col, coal_col, name_col):
     name_cell = name_col+row_str
     return '=IF(OR(NOT({0}="0"),NOT({1}="0")),{2},{0})'.format(oil_cell, coal_cell, name_cell)
 
+def verification_1col(row, col, name_col):
+    row_str = str(row)
+    col_cell = col+row_str
+    name_cell = col+row_str
+    return '=IF(NOT({0}="0"), {1}, {0})'.format(col_cell, name_cell)
+
 def get_pool_name(pooled_row):
     return pooled_row.get('Name')
 
