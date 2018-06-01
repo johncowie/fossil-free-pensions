@@ -249,6 +249,38 @@ def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
 
     return rows
 
+def fracking_full_data_tab(fund_name, init_data, fracking_patterns):
+    headers = ['Name of Local Authority Pension Fund'
+              ,'Description of Holding'
+              ,'Sub-category/Classification'
+              ,'Fracking Companies'
+              ,'Verification'
+              ,'Fossil Fuel Amounts'
+              ,'All Amounts']
+
+    rows = [headers]
+
+    for init_row in init_data:
+        rowNo = len(rows) + 1
+        cellId = 'B'+str(rowNo)
+        fracking_formula = None
+        if(cellId == 'B2'):
+            fracking_formula=formula.pattern_match('B2:B', fracking_patterns)            
+        row = [fund_name
+              ,init_row.get('Description of Holding', '')
+              ,init_row.get('Sub-category/Classification', '')
+              ,fracking_formula
+              ,formula.verification_1col(rowNo, 'D', 'B')
+              ,formula.fossil_amount(rowNo, 'E', 'G')
+              ,spreadsheet.number_cell(init_row.get('Amount', ''))
+              ]
+        rows.append(row)
+
+    return rows
+
+
+
+
 def direct_investments_tab():
     return [ ['Name', "='Full Data'!A2"]
             ,['Total holdings', "=SUM('Full Data'!H1:H)"]

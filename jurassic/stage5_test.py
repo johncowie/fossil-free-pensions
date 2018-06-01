@@ -51,6 +51,19 @@ def test_full_data_tab():
                 ]
     assert expected == stage5.full_data_tab('A fund', init_data, oil_patterns, coal_patterns)
 
+def test_fracking_full_data_tab():
+    init_data = [fund_record('BP Oil', '23400', 'category1'),
+                 fund_record('Big Coal', '345.3', 'category2'),
+                 fund_record('Evil Doers', '455.4', 'category3')]
+    fracking_patterns = [{'name':'BP', 'pattern':'^BP*'},
+                         {'name':'Shell', 'pattern':'shell'}]
+    expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Fracking Companies',  'Verification', 'Fossil Fuel Amounts', 'All Amounts']
+                ,['A fund', 'BP Oil', 'category1', formula.pattern_match('B2:B', fracking_patterns), formula.verification_1col(2, 'D', 'B'), formula.fossil_amount(2, 'E', 'G'), number_cell(23400.0)]
+                ,['A fund', 'Big Coal', 'category2', None, formula.verification_1col(3, 'D', 'B'), formula.fossil_amount(3, 'E', 'G'), number_cell(345.3)]
+                ,['A fund', 'Evil Doers', 'category3', None, formula.verification_1col(4, 'D', 'B'), formula.fossil_amount(4, 'E', 'G'),number_cell(455.4)]
+                ]
+    assert expected == stage5.fracking_full_data_tab('A fund', init_data, fracking_patterns)
+    
 def test_direct_investments_tab():
     expected = [ ['Name', "='Full Data'!A2"]
                 ,['Total holdings', "=SUM('Full Data'!H1:H)"]
