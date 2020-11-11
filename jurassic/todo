@@ -1,0 +1,56 @@
+- [X] Commit any outstanding work and run tests
+- [X] Move git repo to johncowie as master branch
+- [ ] Read through whatsapp messages and add stuff to todo list
+- [X] Fix tests
+- [ ]
+
+
+
+
+-- Fracking work
+- [ ] Add fracking company pattern matches
+- [ ] Add Fracking Companies column to Full Data tab
+- [ ] Add Fracking Direct Investments tab
+- [ ] Pooled data tab - Pooled fund in fracking column
+- [ ] Pooled data tab - Estimated fracking holding column
+- [ ] Pooled data tab - Total estimated fracking total
+- [ ] Pooled data tab - Total direct fracking
+- [ ] Pooled data tab - Final fracking total
+
+
+-- Refactoring
+- [ ] Separate out google spreadsheet stuff more cleanly
+- [ ] Separate file reading writing from spreadsheet generation
+- [ ] Make spreadsheet generation function one data input and one data output
+- [ ] Write things up as a command line app
+
+Questions
+ - [ ] Should fracking data be surfaced on front-end?
+ - [ ] Fracking is a subset of Oil/Coal right?
+
+
+-- Fracking companies
+o Anardarko
+o Antero
+o Apache Corp
+o BHP Billiton
+x BP
+o Cabot Oil & Gas
+o Chevron
+o ConocoPhillips
+o Devon Energy
+o Encana Corporation
+o EOG Resources
+o EQT
+o ExxonMobil
+o Hess Corporation
+o Marathon Oil
+o Murphy Oil Corporation
+o Newfield Exploration
+o Noble Energy
+o Occidental Petroleum
+o Pioneer Natural Resources
+o Range Resources
+o Shell
+o Statoil
+o IGas

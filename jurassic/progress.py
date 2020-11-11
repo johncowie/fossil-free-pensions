@@ -1,5 +1,6 @@
 import json
 import os.path
+import os
 
 class FileList:
     _filename = None
@@ -42,6 +43,9 @@ class FileCheckList:
         data = {'done':[], 'todo':item_list}
         with open(self._filename, 'w+') as f:
             f.write(json.dumps(data))
+
+    def clear_todos(self):
+        os.remove(self._filename)
             
     def get_data(self):
         with open(self._filename) as f:

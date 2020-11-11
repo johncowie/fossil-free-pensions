@@ -82,10 +82,21 @@ def test_full_data_tab():
                 ]
     assert expected == stage5.full_data_tab('A fund', init_data, oil_patterns, coal_patterns)
 
+def test_is_valid_input_row():
+    assert stage5.is_valid_input_row(fund_record('', '0', '')) == False
+    assert stage5.is_valid_input_row(fund_record('Company', '2', '')) == True
+    assert stage5.is_valid_input_row(fund_record('Company', '-', '')) == False
+    assert stage5.is_valid_input_row(fund_record('Compnay', '', '')) == False
+    assert stage5.is_valid_input_row(fund_record('Company', '2a', '')) == False
+    assert stage5.is_valid_input_row(fund_record('Company', '1000,000', '')) == True
+    
 def test_fracking_full_data_tab():
-    init_data = [fund_record('BP Oil', '23400', 'category1'),
-                 fund_record('Big Coal', '345.3', 'category2'),
-                 fund_record('Evil Doers', '455.4', 'category3')]
+    init_data = [ fund_record('BP Oil', '23400', 'category1')
+                , fund_record('Big Coal', '345.3', 'category2')
+                , fund_record('Evil Doers', '455.4', 'category3')
+                , fund_record('', '0', 'blibble')
+                , fund_record('No amount', '', 'category4')
+    ]
     fracking_patterns = [{'name':'BP', 'pattern':'^BP*'},
                          {'name':'Shell', 'pattern':'shell'}]
     expected = [ ['Name of Local Authority Pension Fund', 'Description of Holding', 'Sub-category/Classification', 'Fracking Companies',  'Verification', 'Fracking Amounts', 'All Amounts']
@@ -173,7 +184,7 @@ def test_all_spreadsheets():
                     ,['Big Coal', None, None]
                     ,['Coca-cola', None, None]
                     ,['Gazprom', None, None]]
-    expected = {'sheets':expected_sheets, 'metadata':{'METADATA-MATCHES':[('Matches', expected_meta)]}}
+    expected = {'sheets':expected_sheets, 'metadata':[('Matches', expected_meta)]}
     assert stage5.all_spreadsheets(init_data, oil_patterns, coal_patterns) == expected
 
 def test_fracking_all_spreadsheets():
@@ -196,7 +207,8 @@ def test_fracking_all_spreadsheets():
                     ,['Big Coal', None]
                     ,['Coca-cola', None]
                     ,['Gazprom', None]]
-    expected = {'sheets':expected_sheets, 'metadata':{'METADATA-MATCHES':[('Matches', expected_meta)]}}
+    expected = {'sheets':expected_sheets, 'metadata':[('Matches', expected_meta)
+                                                      ,('Matched',[['=FILTER(Matches!A2:B, Matches!B2:B <> "0")']])]}
     assert stage5.fracking_all_spreadsheets(init_data, fracking_patterns) == expected
 
     
@@ -204,3 +216,75 @@ def test_include_file():
     assert stage5.include_file('ABC', None, ['ABC']) == False
     assert stage5.include_file('ABC', None, None) == True
     assert stage5.include_file('ABC', ['DEF'], None) == False
+
+def test_fracking_summary_tab():
+    input = { 'C-Fund': { 'url': 'url-c' 
+                         ,'overview': [{ 'Total Fund Amount' : 100
+                                        , 'Fracking Investment' : 10
+                                        , '% Fracking': 1.1
+                                        , 'Direct Fracking Investment': 3
+                                        , 'Indirect Fracking Investment': 6
+                                        , "companies[0]['name']":'CompA'
+                                        , "companies[0]['value']":1
+                                        , "companies[1]['name']":'CompD'
+                                        , "companies[1]['value']":4
+                                        , "companies[2]['name']":'CompG'
+                                        , "companies[2]['value']":7
+                                        , "companies[3]['name']":'CompJ'
+                                        , "companies[3]['value']":10
+                                        , "companies[4]['name']":'CompK'
+                                        , "companies[4]['value']":11
+                                        }]}
+              , 'A-Fund': {'url': 'url-a'
+                          ,'overview': [{'Total Fund Amount' : 90
+                                         ,'Fracking Investment': 9
+                                         , '% Fracking': 1.9
+                                         , 'Direct Fracking Investment': 2
+                                         , 'Indirect Fracking Investment': 4
+                                         , "companies[0]['name']":'CompB'
+                                         , "companies[0]['value']":2
+                                         , "companies[1]['name']":'CompE'
+                                         , "companies[1]['value']":5
+                                         , "companies[2]['name']":'CompH'
+                                         , "companies[2]['value']":8}]}
+              , 'B-Fund': {'url': 'url-b'
+                           ,'overview': [{'Total Fund Amount' : 80
+                                         ,'Fracking Investment':8
+                                         , '% Fracking': 1.8
+                                         , 'Direct Fracking Investment': 1
+                                         , 'Indirect Fracking Investment': 2
+                                         , "companies[0]['name']":'CompC'
+                                         , "companies[0]['value']":3
+                                         , "companies[1]['name']":'CompF'
+                                         , "companies[1]['value']":6
+                                         , "companies[2]['name']":'CompI'
+                                         , "companies[2]['value']":9}]}}
+    expected = [[ 'Local Authority Pension Funds'
+                  , 'google_doc_url'
+                  , 'Total Fund Amount'
+                  , 'Fracking Investment'
+                  , '% Fracking'
+                  , 'Direct Fracking Investment'
+                  , 'Estimated Indirect Fossil Fuel Investment (through pooled funds)'
+                  , "companies[0]['name']"
+                  , "companies[0]['value']"
+                  , "companies[1]['name']"
+                  , "companies[1]['value']"
+                  , "companies[2]['name']"
+                  , "companies[2]['value']"
+                  , "companies[3]['name']"
+                  , "companies[3]['value]"
+                  , "companies[4]['name']"
+                  , "companies[4]['value']"]
+               ,[ 'Totals'
+                  , ''
+                  , '=SUM(C3:C)'
+                  , '=SUM(D3:D)'
+                  , '=D2/C2'
+                  , '=SUM(F3:F)'
+                  , '=SUM(G3:G)']
+                ,['A-Fund', 'url-a', 90, 9, 1.9, 2, 4, 'CompB', 2, 'CompE', 5, 'CompH', 8, None, None, None, None]
+                ,['B-Fund', 'url-b', 80, 8, 1.8, 1, 2, 'CompC', 3, 'CompF', 6, 'CompI', 9, None, None, None, None]
+                ,['C-Fund', 'url-c', 100, 10, 1.1, 3, 6, 'CompA', 1, 'CompD', 4, 'CompG', 7, 'CompJ', 10, 'CompK', 11]
+    ]
+    assert expected == stage5.fracking_summary_tab(input)

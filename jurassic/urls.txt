@@ -8,6 +8,7 @@ Cheshire Pension Fund - https://docs.google.com/spreadsheets/d/1DgBRGNBA-5aBcy2F
 City and County of Swansea Fund_ - https://docs.google.com/spreadsheets/d/1qbXzalw_gIA4jgQKaonmVUuhGsQW7bgvRhVN1DUBFJg/
 City of London Pension Fund - https://docs.google.com/spreadsheets/d/19IHkqzH0-TvMDqc_7_9VpmbXheRS7RhufA49Ks0q7ls/
 Clywd Pension Fund - https://docs.google.com/spreadsheets/d/1LWrYnpM9Qic322TvyBuyDB8AjOKZWc6H1DB0vt7DvsQ/
+Copy of Northern Ireland Pension Fund - https://docs.google.com/spreadsheets/d/14XYfKIm1y6xRQdC4yHHGQW9EUp1hISHtrnMO4DLyrpU/
 Cornwall Pension Fund - https://docs.google.com/spreadsheets/d/1vDuF_tj2_xrg1LowTe5Qj8BQdkmGeisrZOwkYgE2sxs/
 Cumbria County Council Pension Fund - https://docs.google.com/spreadsheets/d/1M9KlhuqJE7xe1VqZkBe4sZQsdGdI7g4Cb6Shh4nHuQQ/
 Derbyshire County Council Pension Fund - https://docs.google.com/spreadsheets/d/1ior8nux9hyubbB0QrY6s7zMF2vjL3beiSbPtn_thO14/
@@ -15,7 +16,6 @@ Dorset County Council Pension Fund - https://docs.google.com/spreadsheets/d/1vSF
 Dumfries and Galloway Pension Fund - https://docs.google.com/spreadsheets/d/1jTgHdIiVcknG3RD9fJV8haHkgmbvXkQFd_0C3cd7xgk/
 Durham County Council Pension Fund - https://docs.google.com/spreadsheets/d/1NJgZJ5nvTkPa0hNtMqekuFDQdoooA3iZV_RwO7vPTAk/
 Dyfed Pension Fund - https://docs.google.com/spreadsheets/d/1lQNZ3a3nohmJs3k2dyeDW8pXxtLsUj2dtabQyNRbFzc/
-East Riding Pension Fund - https://docs.google.com/spreadsheets/d/1QKKK_DRCYeEZrOrElUfvhnR693izlyEsBF86ZC4fxtc/
 East Sussex Pension Fund - https://docs.google.com/spreadsheets/d/1Q5tjPeCC3-f8ZB3czB8QpNkREvUtkHRi3sWKr6uUehs/
 Environment Agency Pension Fund_ - https://docs.google.com/spreadsheets/d/1KfKFx7f5Wjr8bhldVqWxULC6uDwsdhMJp8DIM7-qQVE/
 Essex Pension Fund_ - https://docs.google.com/spreadsheets/d/15cw70Wj5-znAyBaHbT5HXCHdVWvpmfg6njTkEbWuGHA/
@@ -42,7 +42,6 @@ LB Hackney Pension Fund - https://docs.google.com/spreadsheets/d/1cr_WyTlodd8BwO
 LB Hammersmith and Fulham Pension Fund - https://docs.google.com/spreadsheets/d/1ExfnHdtm-7lccfLSqTMQV2QZvJftwSQDEDU9ZWWlVn0/
 LB Haringey Pension Fund - https://docs.google.com/spreadsheets/d/1gFsW4R4iTwanCswCArQpIVrsFycKczeS2H2NCQ_Snk4/
 LB Harrow Pension Fund - https://docs.google.com/spreadsheets/d/1hssRWs1wwp6gp8LCWzq8ZjZ7bSGqPBOuE2RGN0aEGEQ/
-LB Havering Pension Fund - https://docs.google.com/spreadsheets/d/1DE53a6tEhwHHRywfDh8gG_htm8rKWpkpDEqcc_Kxm5w/
 LB Hillingdon Pension Fund - https://docs.google.com/spreadsheets/d/14uDRQCD48Vi0-gVqmsxfgQPv9vjP42splQRTUrronpU/
 LB Hounslow Pension Fund_ - https://docs.google.com/spreadsheets/d/1ELuz8zYKsP_WTVQaJ5AvX3V1wEj13JjZnG3CC0mUmas/
 LB Islington Pension Fund - https://docs.google.com/spreadsheets/d/1ybYacPwgvuedMpe65jIksdoGyW4DmKmlxK_EOeyRgZg/
@@ -63,10 +62,10 @@ London Pension Fund Authority - https://docs.google.com/spreadsheets/d/10uQwJu4p
 Lothian Pension Fund - https://docs.google.com/spreadsheets/d/1lAH1HwRz8iDTwWyWmKJRzhQ7AGYAAm8_-d0h7TFLMo8/
 Merseyside Pension Fund - https://docs.google.com/spreadsheets/d/1qY8uMQ26uHhbqO62gqj0Be_Zf5vo0euuAbd0uhwVXUQ/
 Norfolk Pension Fund - https://docs.google.com/spreadsheets/d/1v1ADaLUfq1xSgzAgU4efhwdnp3QrTgfy56ymOiqJZGY/
+North East Scotland - https://docs.google.com/spreadsheets/d/1-qYOH8CVFrMtPDFEa7DIWk1wuqJVGkNp8uiLVQeYG-Q/
 North Yorkshire Pension Fund - https://docs.google.com/spreadsheets/d/1su5YRdSHR-t0uW6mDSbGMigu4m2AuvNUk2ZmAUqj1ys/
 Northamptonshire Local Government Pension Scheme - https://docs.google.com/spreadsheets/d/1EDtKaVRchoYi7IDFWnszYFUEvWZ7jlkm6r2u0lKSQLA/
 Northern Ireland Pension Fund - https://docs.google.com/spreadsheets/d/1K9Fr7twItCI9EnmuwNhvs8HjbYO7q17PfFzxOLidxMI/
-Northern Ireland Pension Fund - https://docs.google.com/spreadsheets/d/1kWcb3IqsIglViuVzMy0pjY1jR_3E8oyzEkHqdYqBBWU/
 Northumberland County Council Pension Fund_ - https://docs.google.com/spreadsheets/d/1iBDgvw7YNEptz3k_hmcwSE1t7NprIP6Ux8m2_rS29XM/
 Nottinghamshire County Council Pension Fund - https://docs.google.com/spreadsheets/d/1Q_6pR8JA9TEItekqIGwji94NBqd3jbKKw3j6bG3pVPc/
 Orkney Islands Council Pension Fund - https://docs.google.com/spreadsheets/d/1XDc1pE0XTRLSn6-SzvqY2V6iYod9EIR0w2nnklWfSfc/
@@ -90,11 +89,12 @@ Suffolk County Council Pension Fund - https://docs.google.com/spreadsheets/d/19N
 Surrey County Council Pension Fund - https://docs.google.com/spreadsheets/d/1-K1oL3bu-pEO02PkNBZ01fWfhVpSfOafDfMP8Zfy9FQ/
 Tayside Pension Fund - https://docs.google.com/spreadsheets/d/1Wh_IYt-jpBWKZlZp8-4OTSG7Y_ady8MI2QposWX9Dt4/
 Teesside Pension Fund_ - https://docs.google.com/spreadsheets/d/1gm7jx-bE_vefcisaPEE7FT-dBqxeG80Txg5_diTnugw/
-Torfaen Pension Fund - https://docs.google.com/spreadsheets/d/1SmsWBHysahaGxghMhHPYrTcSle75xCoF64glaBOIMJg/
 Tyne and Wear Pension Fund - https://docs.google.com/spreadsheets/d/1JZl2PQa5eAgERRU0iq26JlrkoXd8XJujXLz6wX9GrjE/
 Warwickshire County Council Pension Fund_ - https://docs.google.com/spreadsheets/d/1lJ0Ie5Q1XLKidI4kqLzriiXAzXGNaYLaGRAz6yoYBrw/
 West Midlands Pension Fund - https://docs.google.com/spreadsheets/d/1hUyij243NMtabGev4182VnVez9D04RwmCmyQaL8LbCM/
-West Yorkshire Pension Fund - https://docs.google.com/spreadsheets/d/1srtUkPmg9OI1JlBCvvYslW8ERavXNN-wUgES_wQPdzc/
+West Sussex Pension Fund - https://docs.google.com/spreadsheets/d/1StOVzFXZaSfTlJKtleQlJ6FBbWf_FzY0e84kwkBBCd4/
+West Yorkshire Pension Fund 2016 figures - https://docs.google.com/spreadsheets/d/1srtUkPmg9OI1JlBCvvYslW8ERavXNN-wUgES_wQPdzc/
+West Yorkshire Pension Fund 2017 estimates - https://docs.google.com/spreadsheets/d/1DxBG2j_3e1Uu0fT3EwY1I9lbJpLOPvZgYYeW7Q3lNHk/
 Westminster City Council Pension Fund - https://docs.google.com/spreadsheets/d/1IoLZf53OdSGhoL4vXKA8ndnXQ9p4aGdMoc-uKiZWOZA/
 Wiltshire Pension Fund - https://docs.google.com/spreadsheets/d/1u9DaXtXCUu8O2yVnjKLN4NRXbfIXBydVGh5g3IUoPEk/
 Worcestershire Pension Fund - https://docs.google.com/spreadsheets/d/1TmjuuCjMhGhVuvH1-KlSapjRoX_bUCKpOdTklNseEjQ/

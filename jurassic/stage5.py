@@ -68,12 +68,17 @@ def create_spreadsheet(api, parent_folder_id, name, tabs, emails, can_edit=False
     print("Created spreadsheet for: " + name + "")
     return ss.id
 
-def prepare_folder(api, folder_name, retry):
-    if retry:
-        return api.find_folder(folder_name)['id']
-    else:
+def prepare_folder(api, folder_name, reset):
+    if reset:
         api.delete_files_in_folder(folder_name)
         return api.create_directory(folder_name)
+    else:
+        folder = api.find_folder(folder_name)
+        if folder == None:
+            return api.create_directory(folder_name)
+        else:
+            return folder['id']
+        
 
 def read_stage3(api, input_folder_name, inclusion_list=None, exclusion_list=None):
     oil = load_oil_categories(api)
@@ -116,6 +121,12 @@ def create_all_spreadsheets_sf(api, input_folder_name, folder_name, emails, retr
     output = read_stage3(api, input_folder_name, inclusion_list)
     write_stage5(api, output, folder_name, emails, retry)
 
+def investments_from_input_data(data):
+    investments = set()
+    for row in data['data']:
+      investments.add(row['Description of Holding'])
+    return investments
+    
 def all_spreadsheets(init_data, oil_patterns, coal_patterns):
     output_sheets = {}
     investments = set()
@@ -143,18 +154,18 @@ def fracking_all_spreadsheets(init_data, fracking_patterns):
     return {'sheets':output_sheets, 'metadata':fracking_gen_metadata(investments, fracking_patterns)}    
 
 def gen_spreadsheet(fund_name, init_data, oil_patterns, coal_patterns):
-    investments_length = len(init_data['data'])
+    investments_length = len(list(filter(is_valid_input_row, init_data['data'])))
     return [ ('Full Data', full_data_tab(fund_name, init_data['data'], oil_patterns, coal_patterns))
             ,('Fossil Fuel Direct Investments', direct_investments_tab())
             ,('Pooled Funds & Total Fossil Fuels', pooled_data_tab(init_data['pooled'], investments_length))
             ,('Overview figures', overview_tab())]
 
 def fracking_gen_spreadsheet(fund_name, init_data, fracking_patterns):
-    investments_length = len(init_data['data'])
+    investments_length = len(list(filter(is_valid_input_row, init_data['data'])))
     return [ ('Full Data', fracking_full_data_tab(fund_name, init_data['data'], fracking_patterns))
-            ,('Fracking Direct Investments', direct_investments_tab())
-            ,('Pooled Funds & Total Fracking', pooled_data_tab(init_data['pooled'], investments_length))
-            ,('Overview figures', overview_tab())]    
+            ,('Fracking Direct Investments', fracking_direct_investments_tab())
+            ,('Pooled Funds & Total Fracking', fracking_pooled_data_tab(init_data['pooled'], investments_length))
+            ,('Overview figures', fracking_overview_tab())]    
 
 def gen_metadata(investments, oil_patterns, coal_patterns):
     headers = ['Holding', 'Oil Match', 'Coal Match']
@@ -167,7 +178,7 @@ def gen_metadata(investments, oil_patterns, coal_patterns):
                   ,formula.pattern_match('A2:A', oil_patterns)
                   ,formula.pattern_match('A2:A', coal_patterns)]
         rows.append(row)
-    return {'METADATA-MATCHES':[('Matches', [headers] + rows)]}
+    return [('Matches', [headers] + rows)]
 
 def fracking_gen_metadata(investments, fracking_patterns):
     headers = ['Holding', 'Fracking Match']
@@ -179,7 +190,8 @@ def fracking_gen_metadata(investments, fracking_patterns):
             row = [investment
                   ,formula.pattern_match('A2:A', fracking_patterns)]
         rows.append(row)
-    return {'METADATA-MATCHES':[('Matches', [headers] + rows)]}
+    return [ ('Matches', [headers] + rows)
+            ,('Matched', [['=FILTER(Matches!A2:B, Matches!B2:B <> "0")']])]
 
 
 def overview_tab():
@@ -223,6 +235,49 @@ def overview_tab():
             ,""
             ,""]
     return [row1, row2]
+
+def fracking_overview_tab():
+    row1 = ['Local Authority',
+            'Pension Fund',
+            'Total Fund Amount',
+            'Fracking Investment',
+            '% Fracking',
+            'Direct Fracking Investment',
+            'Indirect Fracking Investment',
+            "companies[0]['name']",
+            "companies[0]['value']",
+            "companies[1]['name']",
+            "companies[1]['value']",
+            "companies[2]['name']",
+            "companies[2]['value']",
+            "companies[3]['name']",
+            "companies[3]['value']",
+            "companies[4]['name']",
+            "companies[4]['value']",
+            "post_content",
+            "google_doc_url"
+            ]
+    row2 = [ ""
+            ,""
+            ,"='Pooled Funds & Total Fracking'!F24"
+            ,"='Pooled Funds & Total Fracking'!F23"
+            ,"='Pooled Funds & Total Fracking'!G23"
+            ,"='Pooled Funds & Total Fracking'!F21"
+            ,"='Pooled Funds & Total Fracking'!F20"
+            ,"='Fracking Direct Investments'!C9"
+            ,"='Fracking Direct Investments'!A9"
+            ,"='Fracking Direct Investments'!C10"
+            ,"='Fracking Direct Investments'!A10"
+            ,"='Fracking Direct Investments'!C11"
+            ,"='Fracking Direct Investments'!A11"
+            ,"='Fracking Direct Investments'!C12"
+            ,"='Fracking Direct Investments'!A12"
+            ,"='Fracking Direct Investments'!C13"
+            ,"='Fracking Direct Investments'!A13"
+            ,""
+            ,""]
+    return [row1, row2]
+
 
 
 def pooled_data_tab(pooled_matches, investment_length):
@@ -272,6 +327,21 @@ def fracking_pooled_data_tab(pooled_matches, investment_length):
     return top_bit + pooled_rows + totals
     
 
+def is_valid_amount(amount):
+    try:
+        if(type(amount) is str):
+            float(amount.replace(',', ''))
+            return True
+        else:
+            return True
+    except ValueError:
+        return False
+
+def is_valid_input_row(row):
+    holding = row.get('Description of Holding', '')
+    amount = row.get('Amount', '')
+    return holding != '' and is_valid_amount(amount)
+
 # Figure out column letters from headers?
 def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
     headers = ['Name of Local Authority Pension Fund'
@@ -286,6 +356,9 @@ def full_data_tab(fund_name, init_data, oil_patterns, coal_patterns):
     rows = [headers]
 
     for init_row in init_data:
+        if not is_valid_input_row(init_row):
+            print('SKIPPING invalid row: ' + str(init_row))
+            continue
         rowNo = len(rows) + 1
         cellId = 'B'+str(rowNo)
         oil_formula = None
@@ -318,6 +391,9 @@ def fracking_full_data_tab(fund_name, init_data, fracking_patterns):
     rows = [headers]
 
     for init_row in init_data:
+        if not is_valid_input_row(init_row):
+            print('SKIPPING INVALID ROW: ' + str(init_row))
+            continue
         rowNo = len(rows) + 1
         cellId = 'B'+str(rowNo)
         fracking_formula = None
@@ -380,6 +456,56 @@ def fracking_direct_investments_tab():
             ,[formula.largest_value('Full Data', 'F', 9), spreadsheet.percentage("=A17/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 9)]
             ,[formula.largest_value('Full Data', 'F', 10), spreadsheet.percentage("=A18/$B$2"), formula.largest_value_name('Full Data', 'F', 'E', 10)]
             ]
+
+def fracking_summary_tab(input):
+    rows = []
+    for authority in input:
+        overview_row = input[authority]['overview'][0]
+        row = [ authority
+                , input[authority]['url']
+                , overview_row['Total Fund Amount']
+                , overview_row['Fracking Investment']
+                , overview_row['% Fracking']
+                , overview_row['Direct Fracking Investment']
+                , overview_row['Indirect Fracking Investment']
+                , overview_row.get("companies[0]['name']")
+                , overview_row.get("companies[0]['value']")
+                , overview_row.get("companies[1]['name']")
+                , overview_row.get("companies[1]['value']")
+                , overview_row.get("companies[2]['name']")
+                , overview_row.get("companies[2]['value']")
+                , overview_row.get("companies[3]['name']")
+                , overview_row.get("companies[3]['value']")
+                , overview_row.get("companies[4]['name']")
+                , overview_row.get("companies[4]['value']")
+        ]
+        rows.append(row)
+    rows.sort()
+    
+    return [[ 'Local Authority Pension Funds'
+                  , 'google_doc_url'
+                  , 'Total Fund Amount'
+                  , 'Fracking Investment'
+                  , '% Fracking'
+                  , 'Direct Fracking Investment'
+                  , 'Estimated Indirect Fossil Fuel Investment (through pooled funds)'
+                  , "companies[0]['name']"
+                  , "companies[0]['value']"
+                  , "companies[1]['name']"
+                  , "companies[1]['value']"
+                  , "companies[2]['name']"
+                  , "companies[2]['value']"
+                  , "companies[3]['name']"
+                  , "companies[3]['value]"
+                  , "companies[4]['name']"
+                  , "companies[4]['value']"]
+               ,[ 'Totals'
+                  , ''
+                  , '=SUM(C3:C)'
+                  , '=SUM(D3:D)'
+                  , '=D2/C2'
+                  , '=SUM(F3:F)'
+                  , '=SUM(G3:G)']] + rows
 
 # test_batch_update()
 
